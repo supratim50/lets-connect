@@ -1,0 +1,38 @@
+.themeButton {
+    padding: 4px;
+    width: 40px;
+    background-color: var(--heading-color);
+    border-radius: 50px;
+}
+.toggle-button {
+    width: 20px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: var(--background);
+    border: none;
+}
+.dark {
+    animation-name: dark;
+    animation-duration: 0.5s;
+    transform: translateX(19px);
+    
+}
+@keyframes dark {
+    from {transform: translateX(0px);}
+    to {transform: translateX(19px);}
+}
+
+.light {
+    animation-name: light;
+    animation-duration: 0.5s;
+    transform: translateX(0px);
+    
+}
+@keyframes light {
+    from {
+        transform: translateX(19px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}

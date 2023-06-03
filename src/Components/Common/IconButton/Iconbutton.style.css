@@ -1,0 +1,8 @@
+.button {
+    color: var(--paragraph-color);
+    cursor: pointer;
+    background-color: transparent;
+}
+.button:hover {
+    color: var(--heading-color);
+}
