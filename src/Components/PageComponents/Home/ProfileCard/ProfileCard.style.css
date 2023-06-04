@@ -1,0 +1,27 @@
+.profile-cover {
+    height: 75px;
+    object-fit: cover;
+}
+.profile-image {
+    margin-top: -37.5px;
+}
+.followers-box {
+    position: relative;
+    border-top: 1px solid var(--paragraph2-color);
+    border-bottom: 1px solid var(--paragraph2-color);
+}
+.followers-box-right {
+    position: relative;
+}
+.followers-box-right::before {
+    content: "";
+    width: 1px;
+    height: 40px;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    border-left: 1px solid var(--paragraph2-color);
+}

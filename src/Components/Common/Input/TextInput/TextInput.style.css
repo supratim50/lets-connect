@@ -1,9 +1,11 @@
 .input-box {
     background-color: var(--background2);
     border-radius: 10px;
+    width: 100%;
 }
 .text-input {
     background-color: transparent;
     outline: none;
     border: none;
+    width: 100%;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import "./ContentCard.style.css";
 
-const ContentCard = ({children}) => {
+const ContentCard = ({children, styles}) => {
   return (
-    <div className='card'>{children}</div>
+    <div className={`card ${styles ? styles : ''}`}>{children}</div>
   )
 }
 

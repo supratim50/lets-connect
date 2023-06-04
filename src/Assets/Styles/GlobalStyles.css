@@ -6,6 +6,10 @@
     font-family: 'Open Sans', sans-serif;
     font-family: 'Poppins', sans-serif;
 }
+::placeholder {
+    color: var(--paragraph-color);
+    opacity: 0.5;
+}
 
 .light-theme {
 
@@ -15,7 +19,7 @@
     --dark-light: #616161;
 
     --background: #ECECEC;
-    --background2: #e0e0e0;
+    --background2: #d7d7d7;
     --primary-color: #ffffff;
     --secondary-color: #e3e3e3;
 
@@ -32,7 +36,7 @@
     --dark-light: #616161;
 
     --background: #222222;
-    --background2: #484848;
+    --background2: #656565;
     --primary-color: #49494d;
     --secondary-color: #636365;
 

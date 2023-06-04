@@ -1,10 +1,10 @@
 import React from 'react';
 import "./ThemeButton.style.css"
 
-const ThemeButton = ({themeHandler, isDark}) => {
+const ThemeButton = ({themeHandler, mode}) => {
   return (
     <div className={`themeButton`} onClick={themeHandler}>
-        <div className={`toggle-button ${isDark ? "dark" : 'light'}`}></div>
+        <div className={`toggle-button ${mode === 'dark' ? "dark" : "light"}`}></div>
     </div>
   )
 }

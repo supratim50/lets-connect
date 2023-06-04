@@ -1,17 +1,16 @@
 import React from 'react';
 import "./TextInput.style.css";
 
-import { IoSearch } from "react-icons/io5";
 import IconButton from '../../IconButton/IconButton';
 
 
-const TextInput = ({icon, classes, inputClass}) => {
+const TextInput = ({icon, classes, inputClass, placeholder, }) => {
   return (
-    <div className={`flex align-center p-1 input-box ${classes ? classes : ''}`}>
+    <div className={`flex align-center input-box ${classes ? classes : ''}`}>
         {
-            icon ? <IconButton Icon={<IoSearch />} classes={`p-1 input-icon`} /> : ''
+            icon ? <IconButton Icon={icon} classes={`p-1 input-icon`} /> : ''
         }
-        <input type='text' className={`text-input ${inputClass ? inputClass : ''}`} />
+        <input type='text' placeholder={placeholder ? placeholder : ''} className={`text-input ${inputClass ? inputClass : ''}`} />
     </div>
   )
 }
