@@ -5,13 +5,13 @@ import { IoSearch } from "react-icons/io5";
 import IconButton from '../../IconButton/IconButton';
 
 
-const TextInput = ({icon, classes}) => {
+const TextInput = ({icon, classes, inputClass}) => {
   return (
     <div className={`flex align-center p-1 input-box ${classes ? classes : ''}`}>
         {
             icon ? <IconButton Icon={<IoSearch />} classes={`p-1 input-icon`} /> : ''
         }
-        <input type='text' className='text-input' />
+        <input type='text' className={`text-input ${inputClass ? inputClass : ''}`} />
     </div>
   )
 }

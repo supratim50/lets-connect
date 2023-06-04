@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,500;1,100;1,200;1,300;1,500&family=Roboto+Condensed:wght@700&family=Roboto:wght@900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .light-theme {
+
+    /* static color  */
+    --main-color: #449ECA;
+    --dark-color: #434343;
+    --dark-light: #616161;
 
     --background: #ECECEC;
     --background2: #e0e0e0;
@@ -12,11 +21,16 @@
 
     --call-to-action: #449ECA;
     --heading-color: #434343;
-    --paragraph-color: #616161;
+    --paragraph-color: #545454;
+    --paragraph2-color: #afafaf;
 }
 
 .dark-theme {
     
+    --main-color: #449ECA;
+    --dark-color: #434343;
+    --dark-light: #616161;
+
     --background: #222222;
     --background2: #484848;
     --primary-color: #49494d;
@@ -25,6 +39,7 @@
     --call-to-action: #ffffff;
     --heading-color: #f7f7f7;
     --paragraph-color: #e3e3e3;
+    --paragraph2-color: #8f8f8f;
 }
 
 .background {
@@ -34,6 +49,33 @@
     overflow: hidden;
 }
 
+/* Text Color */
+.text-heading {
+    color: var(--heading-color);
+}
+.text-paragraph {
+    color: var(--paragraph-color);
+}
+.text-paragraph2 {
+    color: var(--paragraph2-color);
+}
+.text-main {
+    color: var(--main-color);
+}
+.text-dark {
+    color: var(--dark-color);
+}
+.text-dark-light {
+    color: var(--dark-light);
+}
+/* Text Alignment */
+.text-center {
+    text-align: center;
+}
+.link {
+    text-decoration: none;
+}
+
 /* ================================== */
 /* display */
 .flex {
@@ -41,6 +83,9 @@
 }
 .flex-column {
     flex-direction: column;
+}
+.flex-fill {
+    flex: 1;
 }
 .justify-center {
     justify-content: center;
@@ -75,10 +120,10 @@
     font-size: 18px;
 }
 .paragraph {
-    font-size: 16px;
+    font-size: 14px;
 }
 .paragraph-sm {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* ======================================= */
@@ -248,4 +293,8 @@
 }
 .pl-auto {
     padding-left: auto;
+}
+
+.w-100 {
+    width: 100%;
 }

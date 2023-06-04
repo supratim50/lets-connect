@@ -1,0 +1,8 @@
+.card {
+    min-width: 250px;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    overflow: hidden;
+}

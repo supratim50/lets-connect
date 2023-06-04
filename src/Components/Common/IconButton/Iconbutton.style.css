@@ -1,5 +1,4 @@
 .button {
-    color: var(--paragraph-color);
     cursor: pointer;
     background-color: transparent;
 }
