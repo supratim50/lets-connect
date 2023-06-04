@@ -1,0 +1,44 @@
+.icon_text_btn-button {
+    min-width: 100px;
+    border-radius: 75px;
+    border: 1px solid var(--paragraph2-color);
+    cursor: pointer;
+    transition: 0.5s;
+}
+.icon_text_btn-button:hover {
+    border: 1px solid transparent;
+}
+
+
+.px-4  {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.green .icon_text_btn-icon {
+    color: #20DA97;
+} 
+.green:hover {
+    box-shadow: 0 0 5px #20DA97;
+}
+
+.blue .icon_text_btn-icon {
+    color: #4B93FF;
+} 
+.blue:hover {
+    box-shadow: 0 0 5px #4B93FF;
+}
+
+.red .icon_text_btn-icon {
+    color: #EB6464;
+} 
+.red:hover {
+    box-shadow: 0 0 5px #EB6464;
+}
+
+.yellow .icon_text_btn-icon {
+    color: #FBC153;
+} 
+.yellow:hover {
+    box-shadow: 0 0 5px #FBC153;
+}

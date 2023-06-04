@@ -11,11 +11,11 @@ const Home = () => {
       {/* FOR PROFILE CARD */}
       <ProfileCard />
       {/* FOR POST SECTION */}
-      <div className='flex-fill ml-1'>
+      <div className='flex-fill mx-3'>
         <PostCard />
       </div>
       {/* FOR FOLLOWERS SECTION */}
-      <div className='ml-1'>
+      <div className=''>
         <ProfileCard />
       </div>
     </div>
