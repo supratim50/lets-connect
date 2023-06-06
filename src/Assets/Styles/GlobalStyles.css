@@ -35,9 +35,9 @@
     --dark-color: #434343;
     --dark-light: #616161;
 
-    --background: #222222;
-    --background2: #656565;
-    --primary-color: #49494d;
+    --background: #06141D;
+    --background2: #28343E;
+    --primary-color: #1B2730;
     --secondary-color: #636365;
 
     --call-to-action: #ffffff;
@@ -49,8 +49,6 @@
 .background {
     background-color: var(--background);
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
 }
 
 /* Text Color */
@@ -72,12 +70,15 @@
 .text-dark-light {
     color: var(--dark-light);
 }
-/* Text Alignment */
+/* Text Alignment & Weight */
 .text-center {
     text-align: center;
 }
 .link {
     text-decoration: none;
+}
+.bold {
+    font-weight: bold;
 }
 
 /* ================================== */

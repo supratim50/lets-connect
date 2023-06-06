@@ -5,8 +5,12 @@ import Home from './Pages/Home/Home';
 const App = () => {
   return (
       <div className='background'>
-        <Header />
-        <Home />
+        <div className='header-nav'>
+          <Header />
+        </div>
+        <div>
+          <Home />
+        </div>
       </div>
   )
 }
