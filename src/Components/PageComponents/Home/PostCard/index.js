@@ -19,7 +19,7 @@ const PostCard = () => {
             </div>
             <TextInput placeholder={"What's Happening?"} classes={"ml-2 p-2"} inputClass={"paragraph text-paragraph"} />
         </div>
-        <div className='py-2 px-3 flex justify-end'>
+        <div className='py-2 px-1 flex justify-end'>
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"green"} icon={<IoImage />} text={"Photo"} />
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"blue"} icon={<IoPlayCircle />} text={"Video"} />
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"red"} icon={<IoListCircle />} text={"Story"} />

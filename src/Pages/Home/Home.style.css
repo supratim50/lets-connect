@@ -1,3 +1,44 @@
 .position-fixed {
-    position: sticky;
+    position: fixed;
+    z-index: 1;
+    top: 77px;
+}
+
+.profile-details {
+    left: 28px;
+}
+
+.followers-details {
+    right: 28px;
+}
+.newsfeed-section {
+    justify-content: center;
+}
+.newsfeed {
+    max-width: 700px;
+}
+
+.side-details {
+    max-width: 300px;
+}
+
+@media screen and (max-width: 1379px) {
+    .followers-details {
+        left: 28px;
+        right: unset;
+        top: 454px;
+    }
+
+    .newsfeed-section {
+        justify-content: flex-end;
+        width: 68%;
+        margin-left: auto !important;
+    }
+    .side-details{
+        width: 25% !important;
+    }
+    .newsfeed {
+        max-width: none;
+        width: 100%;
+    }
 }

@@ -5,10 +5,10 @@ import Home from './Pages/Home/Home';
 const App = () => {
   return (
       <div className='background'>
-        <div className='header-nav'>
+        <div className='border'>
           <Header />
         </div>
-        <div>
+        <div className='home'>
           <Home />
         </div>
       </div>

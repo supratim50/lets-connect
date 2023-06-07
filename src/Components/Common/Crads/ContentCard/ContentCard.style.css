@@ -1,9 +1,6 @@
 .card {
-    min-width: 250px;
+    min-width: inherit;
     border-radius: 10px;
     background-color: var(--primary-color);
     overflow: hidden;
-}
-.max-width {
-    max-width: 300px;
 }

@@ -9,7 +9,7 @@ import ProfilePhoto from "../../../../Assets/Images/profile.png";
 
 const ProfileCard = ({style}) => {
   return (
-    <ContentCard styles={`max-width ${style ? style : ''}`}>
+    <ContentCard styles={`${style ? style : ''}`}>
         <div className='w-100'>
           {/* COVER PHOTO */}
           <img className='profile-cover w-100' src={CoverPhoto} />

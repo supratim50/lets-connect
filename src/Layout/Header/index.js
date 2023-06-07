@@ -34,16 +34,18 @@ const Header = () => {
 
   return (
     <>
-        <div className='flex px-3 py-2'>
-            <div className='flex align-center'>
-                <div><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></div>
-                <TextInput placeholder={"Explore"} classes={"p-1 paragraph text-paragraph"} inputClass={"text-paragraph"} icon={<IoSearch />} />
-            </div>
-            <div className='flex align-center ml-auto'>
-                <div><IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
-                <div><IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
-                <div className='mx-2'>
-                    <ThemeButton themeHandler={themeHandler} mode={mode} />
+        <div className='w-100 nav-header'>
+            <div className='flex px-3 py-1'>
+                <div className='flex align-center'>
+                    <div><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></div>
+                    <TextInput placeholder={"Explore"} classes={"p-1 paragraph text-paragraph"} inputClass={"text-paragraph"} icon={<IoSearch />} />
+                </div>
+                <div className='flex align-center ml-auto nav-link_box'>
+                    <div><IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
+                    <div><IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
+                    <div className='mx-2'>
+                        <ThemeButton themeHandler={themeHandler} mode={mode} />
+                    </div>
                 </div>
             </div>
         </div>

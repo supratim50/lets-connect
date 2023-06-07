@@ -1,3 +1,9 @@
 .text {
     color: var(--heading-color);
 }
+
+.nav-header {
+    position: fixed;
+    background-color: var(--background);
+    z-index: 1;
+}

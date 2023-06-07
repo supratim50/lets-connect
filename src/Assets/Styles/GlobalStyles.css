@@ -50,6 +50,9 @@
     background-color: var(--background);
     width: 100%;
 }
+.home {
+    padding-top: 77px;
+}
 
 /* Text Color */
 .text-heading {

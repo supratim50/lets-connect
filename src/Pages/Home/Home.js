@@ -11,13 +11,15 @@ import ProfileImage from "../../Assets/Images/profile.png";
 
 const Home = () => {
   return (
-    <div className='mx-2 px-3 flex justify-between'>
+    <>
       {/* FOR PROFILE CARD */}
-      <div className='position-fixed'>
+      <div className='position-fixed side-details profile-details'>
         <ProfileCard />
       </div>
+      <div className='mx-2 px-3 flex newsfeed-section'>
+      
       {/* FOR POST SECTION */}
-      <div className='flex-fill mx-3'>
+      <div className='flex-fill newsfeed'>
         <PostCard />
         <NewsFeed 
           image={testPhoto01} 
@@ -35,11 +37,13 @@ const Home = () => {
           postedTime={"10 hours ago"}
         />
       </div>
+    </div>
+    
       {/* FOR FOLLOWERS SECTION */}
-      <div className='position-fixed'>
+      <div className='position-fixed side-details followers-details'>
         <ProfileCard />
       </div>
-    </div>
+    </>
   )
 }
 
