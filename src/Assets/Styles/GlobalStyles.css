@@ -53,6 +53,9 @@
 .home {
     padding-top: 77px;
 }
+.border-1 {
+    border: 1px solid red !important;
+}
 
 /* Text Color */
 .text-heading {

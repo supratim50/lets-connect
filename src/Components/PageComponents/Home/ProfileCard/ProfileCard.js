@@ -15,7 +15,7 @@ const ProfileCard = ({style}) => {
           <img className='profile-cover w-100' src={CoverPhoto} />
           {/* PROFILE PHOTO */}
           <div className='flex justify-center profile-image'>
-            <RoundedImage image={ProfilePhoto} style={"large"} />
+            <RoundedImage image={ProfilePhoto} classes={"large"} />
           </div>
           {/* END PROFILE PHOTO */}
         </div>

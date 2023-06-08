@@ -1,9 +1,9 @@
 import React from 'react';
 import "./RoundedImage.style.css"
 
-const RoundedImage = ({image, style}) => {
+const RoundedImage = ({image, classes, styles}) => {
   return (
-    <div className={`rounded-box ${style ? style : ''}`}>
+    <div className={`rounded-box ${classes ? classes : ''}`} style={styles ? styles : null}>
         <img className='rounded-photo' src={image ? image : ''} />
     </div>
   )

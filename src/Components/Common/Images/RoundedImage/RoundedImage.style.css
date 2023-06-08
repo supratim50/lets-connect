@@ -19,6 +19,10 @@
     height: 55px;
 }
 .small {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
+}
+
+.img-border {
+    border: 2px solid #ffffff;
 }

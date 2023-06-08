@@ -22,6 +22,10 @@
     max-width: 300px;
 }
 
+.followers-card {
+    height: fit-content;
+}
+
 @media screen and (max-width: 1379px) {
     .followers-details {
         left: 28px;

@@ -15,7 +15,7 @@ const PostCard = () => {
     <ContentCard styles={"py-2 px-3"}>
         <div className='flex align-center px-1'>
             <div >
-                <RoundedImage image={ProfileImage} style={"medium"} />
+                <RoundedImage image={ProfileImage} classes={"medium"} />
             </div>
             <TextInput placeholder={"What's Happening?"} classes={"ml-2 p-2"} inputClass={"paragraph text-paragraph"} />
         </div>
