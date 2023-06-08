@@ -12,6 +12,7 @@ import testPhoto04 from "../../Assets/Images/photoTest04.jpg";
 import testPhoto05 from "../../Assets/Images/photoTest05.jpg";
 import testPhoto06 from "../../Assets/Images/photoTest06.jpg";
 import ProfileImage from "../../Assets/Images/profile.png";
+import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
 
 const posts = [
   {
@@ -94,7 +95,7 @@ const Home = () => {
     
       {/* FOR FOLLOWERS SECTION */}
       <div className='position-fixed side-details followers-details'>
-        <ProfileCard />
+        <FollowersCard />
       </div>
     </>
   )

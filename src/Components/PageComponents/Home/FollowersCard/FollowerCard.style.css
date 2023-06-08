@@ -1,0 +1,21 @@
+.followers {
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+.followers::-webkit-scrollbar {
+    display: none;
+}
+
+.follower {
+    min-width: 250px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.4s ease;
+}
+.follower:hover {
+    background-color: var(--background2);
+}
+
+.shadow {
+    box-shadow: 0 0 10px var(--background);
+}

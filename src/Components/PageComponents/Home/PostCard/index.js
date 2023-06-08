@@ -12,12 +12,12 @@ import {IoImage, IoPlayCircle, IoListCircle, IoCalendar} from "react-icons/io5";
 
 const PostCard = () => {
   return (
-    <ContentCard styles={"py-2 px-3"}>
+    <ContentCard classes={"py-2 px-3"}>
         <div className='flex align-center px-1'>
             <div >
                 <RoundedImage image={ProfileImage} classes={"medium"} />
             </div>
-            <TextInput placeholder={"What's Happening?"} classes={"ml-2 p-2"} inputClass={"paragraph text-paragraph"} />
+            <TextInput placeholder={"What's Happening?"} classes={"ml-2 p-2"} inputClass={"paragraph text-paragraph"} resize />
         </div>
         <div className='py-2 px-1 flex justify-end'>
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"green"} icon={<IoImage />} text={"Photo"} />

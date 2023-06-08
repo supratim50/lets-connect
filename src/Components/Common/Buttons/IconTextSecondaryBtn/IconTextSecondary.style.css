@@ -3,4 +3,6 @@
     border-radius: 8px;
     background-color: var(--background2);
     min-width: calc((100% - 24px) / 3);
+    cursor: pointer;
+
 }

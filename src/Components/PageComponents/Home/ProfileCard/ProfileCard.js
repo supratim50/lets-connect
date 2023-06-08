@@ -7,9 +7,9 @@ import RoundedImage from "../../../Common/Images/RoundedImage";
 import CoverPhoto from "../../../../Assets/Images/cover.png";
 import ProfilePhoto from "../../../../Assets/Images/profile.png";
 
-const ProfileCard = ({style}) => {
+const ProfileCard = () => {
   return (
-    <ContentCard styles={`${style ? style : ''}`}>
+    <ContentCard>
         <div className='w-100'>
           {/* COVER PHOTO */}
           <img className='profile-cover w-100' src={CoverPhoto} />

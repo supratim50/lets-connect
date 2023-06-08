@@ -8,4 +8,14 @@
     outline: none;
     border: none;
     width: 100%;
+    height: 25px;
+    max-height: 250px;
+}
+
+.textarea {
+    resize: none;
+}
+
+.textarea::-webkit-scrollbar {
+    display: none;
 }

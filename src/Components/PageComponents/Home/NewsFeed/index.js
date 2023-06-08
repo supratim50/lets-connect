@@ -5,20 +5,18 @@ import RoundedImage from '../../../Common/Images/RoundedImage';
 import IconTextSecondaryBtn from '../../../Common/Buttons/IconTextSecondaryBtn';
 
 import {IoHeart, IoChatbubbleEllipses, IoShare} from "react-icons/io5"
+import ShowProfileCard from '../../../Common/Crads/ShowProfileCard';
 
 const NewsFeed = ({profileImage, name, userName, postedTime, caption, image}) => {
 
   return (
-    <ContentCard styles={"py-2 px-3 my-2"}>
-      <div className='flex align-center'>
-        <div >
-          <RoundedImage image={profileImage} classes={"medium"} />
-        </div>
-        <div className='ml-2'>
-          <p className='paragraph text-heading bold'>{name}</p>
-          <p className='paragraph-sm text-paragraph2'>@{userName} &#x2022; {postedTime} </p> {/* &#x2022; this is for DOT */}
-        </div>
-      </div>
+    <ContentCard classes={"py-2 px-3 my-2"}>
+      <ShowProfileCard
+        profileImage={profileImage}
+        name={name}
+        userName={userName}
+        postedTime={postedTime}  
+      />
 
       <div className='py-2'>
         <div>
