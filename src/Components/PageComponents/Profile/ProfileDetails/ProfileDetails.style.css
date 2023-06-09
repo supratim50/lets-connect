@@ -1,0 +1,8 @@
+.details {
+    background-color: var(--background2);
+    border-radius: 10px;
+}
+
+.textarea {
+    height: 100px;
+}

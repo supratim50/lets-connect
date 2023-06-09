@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 
 import "./header.style.css";
 import IconButton from '../../Components/Common/IconButton/IconButton';
@@ -37,12 +38,18 @@ const Header = () => {
         <div className='w-100 nav-header'>
             <div className='flex px-3 py-1'>
                 <div className='flex align-center'>
-                    <div><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></div>
+                    <div><Link to="/"><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></Link></div>
                     <TextInput placeholder={"Explore"} classes={"p-1 paragraph text-paragraph"} inputClass={"text-paragraph"} icon={<IoSearch />} />
                 </div>
                 <div className='flex align-center ml-auto nav-link_box'>
-                    <div><IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
-                    <div><IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} /></div>
+                    <div>
+                        <Link to="/">
+                            <IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
+                        </Link>
+                    </div>
+                    <div>
+                        <IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
+                    </div>
                     <div className='mx-2'>
                         <ThemeButton themeHandler={themeHandler} mode={mode} />
                     </div>

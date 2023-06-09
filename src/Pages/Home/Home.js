@@ -68,34 +68,36 @@ const posts = [
 const Home = () => {
   return (
     <>
-      {/* FOR PROFILE CARD */}
+      <div className='page'>
+        {/* FOR PROFILE CARD */}
         <div className='position-fixed side-details profile-details'>
           <ProfileCard />
         </div>
 
-      <div className='mx-2 px-3 flex newsfeed-section'>      
-      {/* FOR POST SECTION */}
-      <div className='flex-fill newsfeed'>
-        <PostCard />
-        {
-          posts.map((post) => (
-            <NewsFeed  
-              caption={post.caption} 
-              name={post.name}
-              userName={post.userName}
-              profileImage={post.profileImage}
-              postedTime={post.postedTime}
-              image={post.image}
-            />
-          ))
-        }
-        
+        <div className='mx-2 px-3 flex newsfeed-section'>      
+        {/* FOR POST SECTION */}
+        <div className='flex-fill newsfeed'>
+          <PostCard />
+          {
+            posts.map((post) => (
+              <NewsFeed  
+                caption={post.caption} 
+                name={post.name}
+                userName={post.userName}
+                profileImage={post.profileImage}
+                postedTime={post.postedTime}
+                image={post.image}
+              />
+            ))
+          }
+          
+        </div>
       </div>
-    </div>
-    
-      {/* FOR FOLLOWERS SECTION */}
-      <div className='position-fixed side-details followers-details'>
-        <FollowersCard />
+      
+        {/* FOR FOLLOWERS SECTION */}
+        <div className='position-fixed side-details followers-details'>
+          <FollowersCard />
+        </div>
       </div>
     </>
   )

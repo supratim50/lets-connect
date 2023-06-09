@@ -1,0 +1,39 @@
+.profile-page {
+    height: 100vh;
+}
+
+.profile-box {
+    position: relative;
+    width: 95%;
+    max-width: 800px;
+    border-radius: 16px;
+    background-color: var(--primary-color);
+}
+.cover {
+    height: 150px;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    background-color: antiquewhite;
+}
+.cover-photo {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.dp-box {
+    margin-top: -55px;
+    margin-left: 45px;
+}
+.dp-container {
+    width: 150px;
+}
+
+.dp {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    border: 5px solid #ffff;
+}

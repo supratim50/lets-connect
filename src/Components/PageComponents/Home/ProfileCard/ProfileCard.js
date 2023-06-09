@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import "./ProfileCard.style.css";
 
 import ContentCard from '../../../Common/Crads/ContentCard';
@@ -39,7 +40,7 @@ const ProfileCard = () => {
           </div>
         </div>
         <div className='p-3 flex justify-center align-center'>
-          <a href='#' className='link paragraph text-main'>My Profile</a>
+          <Link to='profile' className='link paragraph text-main'>My Profile</Link>
         </div>
       </ContentCard>
   )
