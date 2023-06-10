@@ -12,10 +12,14 @@ const Profile = () => {
             <div className='cover'>
                 <img className='cover-photo' src={CoverPhoto} />
             </div>
-            <div className='dp-box'>
+            <div className='dp-box flex align-end justify-between pr-3'>
                 <div className='dp-container flex flex-column align-center'>
                     <img className='dp' src={ProfilePhoto} />
                     <p className='heading text-heading bold my-2'>Elon Musk</p>
+                </div>
+
+                <div className='paragraph logout flex justify-center py-2 mr-3'>
+                    <p>Logout</p>
                 </div>
             </div>
 

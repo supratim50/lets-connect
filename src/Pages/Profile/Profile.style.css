@@ -37,3 +37,16 @@
 
     border: 5px solid #ffff;
 }
+
+.logout {
+    background-color: var(--call-to-action);
+    padding-left: 20px;
+    padding-right: 20px;
+    min-width: 80px;
+
+    border-radius: 8px;
+}
+
+.logout p{
+    color: var(--call-to-act-text);
+}
