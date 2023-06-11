@@ -1,0 +1,10 @@
+.register-page {
+    height: 100vh;
+}
+
+.register-box {
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    width: 95%;
+    max-width: 300px;
+}

@@ -1,0 +1,12 @@
+.primary-button {
+    background-color: var(--call-to-action);
+    border-radius: 8px;
+}
+
+.primary-button p{
+    color: var(--call-to-act-text);
+}
+
+.max-width {
+    max-width: 80px;
+}

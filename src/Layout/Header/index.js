@@ -8,7 +8,9 @@ import { IoHomeSharp, IoNotifications, IoLogoTwitter, IoSearch } from "react-ico
 import ThemeButton from './Themebutton/ThemeButton';
 import TextInput from '../../Components/Common/Input/TextInput/TextInput';
 
-const Header = () => {
+const Header = ({children, register}) => {
+
+    const [search, setSearch] = useState("");
 
     const [mode, setMode] = useState("light");
 
@@ -39,23 +41,44 @@ const Header = () => {
             <div className='flex px-3 py-1'>
                 <div className='flex align-center'>
                     <div><Link to="/"><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></Link></div>
-                    <TextInput placeholder={"Explore"} classes={"p-1 paragraph text-paragraph"} inputClass={"text-paragraph"} icon={<IoSearch />} />
+                    {
+                        register
+                        ? null
+                        // If user is on register page then this section should not shown
+                        : <TextInput 
+                            placeholder={"Explore"} 
+                            classes={"p-1 paragraph text-paragraph"} 
+                            inputClass={"text-paragraph"} 
+                            icon={<IoSearch />} 
+                            onChange={setSearch}
+                            value={search}
+                        />
+                    }
                 </div>
                 <div className='flex align-center ml-auto nav-link_box'>
-                    <div>
-                        <Link to="/">
-                            <IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
-                        </Link>
-                    </div>
-                    <div>
-                        <IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
-                    </div>
+                    {
+                        register
+                        ? null
+                        // If user is on register page then this section should not shown
+                        : <>
+                            <div>
+                                <Link to="/">
+                                    <IconButton Icon={<IoHomeSharp />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
+                                </Link>
+                            </div>
+                            <div>
+                                <IconButton Icon={<IoNotifications />} classes={"p-2 mx-2 superHeader2 text-paragraph"} />
+                            </div>
+                        </>
+                    }
                     <div className='mx-2'>
                         <ThemeButton themeHandler={themeHandler} mode={mode} />
                     </div>
                 </div>
             </div>
         </div>
+
+        {children}
         
     </>
   )

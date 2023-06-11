@@ -4,29 +4,31 @@ import "./TextInput.style.css";
 import IconButton from '../../IconButton/IconButton';
 
 
-const TextInput = ({icon, classes, inputClass, placeholder, resize}) => {
+const TextInput = ({icon, classes, inputClass, placeholder, resize, onChange, value, textType}) => {
 
   // const textareaRef = useRef(null);
   const [height, setHeight] = useState(0);
-  const [value, setValue] = useState();
 
   useEffect(() => {
-    const textarea = document.getElementById("textarea");
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
-    setHeight(textarea.scrollHeight);
+    if(resize) {
+      resizeTextarea();
+    }
   }, [value]);
 
   const handleChange = (e) => {
     setValueHnadler(e);
+    resizeTextarea();
+  };
+
+  const resizeTextarea = () => {
     const textarea = document.getElementById("textarea");
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
     setHeight(textarea.scrollHeight);
-  };
+  }
 
   const setValueHnadler = (e) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   }
 
   return (
@@ -47,7 +49,7 @@ const TextInput = ({icon, classes, inputClass, placeholder, resize}) => {
             /> 
           : <input 
               value={value}
-              type='text' 
+              type={textType} 
               placeholder={placeholder ? placeholder : ''} 
               className={`text-input ${inputClass ? inputClass : ''}`} 
               onChange={setValueHnadler}

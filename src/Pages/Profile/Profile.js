@@ -4,6 +4,8 @@ import "./Profile.style.css";
 import CoverPhoto from "../../Assets/Images/cover.png";
 import ProfilePhoto from "../../Assets/Images/profile.png";
 import ProfileDetails from '../../Components/PageComponents/Profile/ProfileDetails';
+import PrimaryBtn from '../../Components/Common/Buttons/PrimaryBtn';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   return (
@@ -18,9 +20,7 @@ const Profile = () => {
                     <p className='heading text-heading bold my-2'>Elon Musk</p>
                 </div>
 
-                <div className='paragraph logout flex justify-center py-2 mr-3'>
-                    <p>Logout</p>
-                </div>
+                <PrimaryBtn text={"Logout"} maxWidth />
             </div>
 
             <ProfileDetails 
