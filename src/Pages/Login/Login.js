@@ -15,8 +15,8 @@ const Login = () => {
             <p className='heading text-heading my-3'>Login</p>
             <div className='my-3 w-100'>
                 <form>
-                    <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100"} onChange={setEmail} value={email} textType={"email"} placeholder={"Enter your email"} />
-                    <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100"} onChange={setPass} value={pass} textType={"password"} placeholder={"Enter your email"} />
+                    <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setEmail} value={email} textType={"email"} placeholder={"Enter your email"} />
+                    <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setPass} value={pass} textType={"password"} placeholder={"Enter your Password"} />
                     <PrimaryBtn text={"Signin"} />
                 </form>
             </div>
