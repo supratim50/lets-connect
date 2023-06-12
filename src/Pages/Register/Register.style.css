@@ -8,3 +8,12 @@
     width: 95%;
     max-width: 300px;
 }
+
+#animated-box {
+    transform: translateX(0);
+    transition: 0.4s;
+}
+
+.switchable-box {
+    min-width: 100%;
+}

@@ -2,6 +2,7 @@
     background-color: var(--call-to-action);
     border-radius: 8px;
     cursor: pointer;
+    border: none;
 }
 
 .primary-button p{

@@ -60,8 +60,15 @@
 .border-1 {
     border: 1px solid red !important;
 }
+.overflow-hide {
+    overflow: hidden;
+}
 
 /* Text Color */
+.text-danger {
+    color: #f14d4d;
+}
+
 .text-heading {
     color: var(--heading-color);
 }

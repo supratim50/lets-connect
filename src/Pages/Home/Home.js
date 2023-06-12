@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {useNavigate} from "react-router-dom"
+import {onAuthStateChanged} from "firebase/auth"
+import {firebaseAuth} from "../../Middleware/db/userAuth";
+
 import "./Home.style.css";
 
 import ProfileCard from "../../Components/PageComponents/Home/ProfileCard/ProfileCard"
@@ -13,6 +17,8 @@ import testPhoto05 from "../../Assets/Images/photoTest05.jpg";
 import testPhoto06 from "../../Assets/Images/photoTest06.jpg";
 import ProfileImage from "../../Assets/Images/profile.png";
 import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
+
+import { isLogin } from '../../Middleware/db/userAuth';
 
 const posts = [
   {
@@ -66,39 +72,64 @@ const posts = [
 ]
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    onAuthStateChanged(firebaseAuth, user => {
+      if(user) setUser(user)
+      else setUser(null)
+    });
+
+    if(user === null) {
+      navigate("/login");
+      setIsLoading(false);
+    } else {
+      setIsLoading(false)
+    }
+  }, [user])
+
   return (
     <>
-      <div className='page'>
-        {/* FOR PROFILE CARD */}
-        <div className='position-fixed side-details profile-details'>
-          <ProfileCard />
+        {
+          isLoading 
+          ? <div className='page paragraph text-paragraph'>Loading...</div>
+          : <div className='page'>
+          {/* FOR PROFILE CARD */}
+          <div className='position-fixed side-details profile-details'>
+            <ProfileCard />
+          </div>
+  
+          <div className='mx-2 px-3 flex newsfeed-section'>      
+          {/* FOR POST SECTION */}
+          <div className='flex-fill newsfeed'>
+            <PostCard />
+            {
+              posts.map((post) => (
+                <NewsFeed  
+                  caption={post.caption} 
+                  name={post.name}
+                  userName={post.userName}
+                  profileImage={post.profileImage}
+                  postedTime={post.postedTime}
+                  image={post.image}
+                />
+              ))
+            }
+            
+          </div>
         </div>
-
-        <div className='mx-2 px-3 flex newsfeed-section'>      
-        {/* FOR POST SECTION */}
-        <div className='flex-fill newsfeed'>
-          <PostCard />
-          {
-            posts.map((post) => (
-              <NewsFeed  
-                caption={post.caption} 
-                name={post.name}
-                userName={post.userName}
-                profileImage={post.profileImage}
-                postedTime={post.postedTime}
-                image={post.image}
-              />
-            ))
-          }
-          
-        </div>
-      </div>
-      
-        {/* FOR FOLLOWERS SECTION */}
-        <div className='position-fixed side-details followers-details'>
-          <FollowersCard />
-        </div>
-      </div>
+        
+          {/* FOR FOLLOWERS SECTION */}
+          <div className='position-fixed side-details followers-details'>
+            <FollowersCard />
+          </div>
+          </div>
+        }
     </>
   )
 }
