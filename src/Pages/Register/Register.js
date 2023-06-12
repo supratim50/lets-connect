@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import "./Register.style.css";
-
-import TextInput from '../../Components/Common/Input/TextInput/TextInput';
-import PrimaryBtn from '../../Components/Common/Buttons/PrimaryBtn';
-
-import {IoArrowForwardOutline, IoCloseOutline} from "react-icons/io5";
-
+// COMPONENTS
 import { signupUser } from '../../Middleware/db/userAuth';
+import RegisterBox from '../../Components/PageComponents/Register/RegisterBox';
+//IMAGES
+import Profile from "../../Assets/Images/profile.png";
+// MIDDLEWARE
+import { getImage, uploadFile } from '../../Middleware/db/CURD';
 
 const Register = () => {
+    
+    const navigate = useNavigate();
 
     // USER data
     const [name, setName] = useState("");
@@ -18,18 +20,35 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [dp, setDp] = useState();
+    const [dpPath, setDpPath] = useState(Profile);
+    const [isImgLoading, setImgLoading] = useState(false);
 
-    // Login Handler
-    const [isNameEmpty, setIsNameEmpty] = useState(false);
-    const [isEmailEmpty, setIsEmailEmpty] = useState(false);
-    const [isDpEmpty, setIsDpEmpty] = useState(false);
+    const fileHandler = async (e) => {
+        setImgLoading(true);
+        setDp(e.target.files[0]);
+        const dp_url = await uploadFile(e.target.files[0]);
+        // getting the path
+        const imageUrl = dp_url.ref.fullPath;
+        // get the download URL
+        setDpPath(await getImage(imageUrl));
+        setImgLoading(false);
+    }
 
-    // translate value
-    const [translate, setTranslate] = useState("0");
-    const [animatedBox, setAnimatedBox] = useState();
-
-    const navigate = useNavigate();
-
+    const value = {
+        name, 
+        userName, 
+        email, 
+        pass, 
+        dp, 
+        setName, 
+        setUserName, 
+        setEmail, 
+        setPass, 
+        setDp: fileHandler,
+        dpPath,
+        isImgLoading
+    }
+    
     // Register function
     const createUser = async (e) => {
         if(email!== "" && pass !== "") {
@@ -42,102 +61,13 @@ const Register = () => {
         }
     }
 
-    // Animation NEXT function
-    const handleNext = () => {
-        console.log("Handle Next clicked!");
-
-        const animatedBox = document.getElementById("animated-box");
-
-        const boxWidth = animatedBox.offsetWidth;
-
-        if(translate == 0) {
-            if(name != "" && userName != "") {
-                setIsNameEmpty(false);
-                let newTranslateValue = Number(translate) - boxWidth;
-                setTranslate(`${newTranslateValue}`);
-            } else {
-                setIsNameEmpty(true);
-            }
-        } else if(translate < -200 && translate > -310) {
-            if(email != "" && pass != "") {
-                setIsEmailEmpty(false);
-                let newTranslateValue = Number(translate) - boxWidth;
-                setTranslate(`${newTranslateValue}`);
-            } else {
-                setIsEmailEmpty(true);
-            }
-        }
-    }
-
-    // Animation PREVIOUS function
-    const handlePrev = () => {
-        console.log("Handle Prev clicked!");
-
-        const boxWidth = animatedBox.offsetWidth;
-
-        let newTranslateValue = Number(translate) + boxWidth;
-        setTranslate(newTranslateValue);
-    }
-
-    // SET ANIMATED DIV
-    useEffect(() => {
-        setAnimatedBox(document.getElementById("animated-box"));
-    }, [])
-
-    // SET STYLE TRANSLATE
-    useEffect(() => {
-        console.log(`translateX(${translate}px)`);
-        if(animatedBox) {
-            animatedBox.style.transform = `translateX(${translate}px)`;
-        }
-    }, [translate])
-
   return (
     <div className='flex align-center justify-center w-100 register-page'>
         <div className='py-2 px-3 register-box'>
             <p className='heading text-heading my-3'>Register</p>
             {/* animated section */}
             <div className='overflow-hide'>
-                {/* ANIMATED BOX */}
-                <div className='flex' id="animated-box">
-                    {/* NAME BOX */}
-                    <div className='w-100 switchable-box'>
-                        <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setName} value={name} textType={"text"} placeholder={"Enter your name"} />
-                        <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setUserName} value={userName} textType={"text"} placeholder={"Enter your @username"} />
-                        {
-                            isNameEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Name and Username.</p> : ""
-                        }
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
-                        <div className='flex justify-end'>
-                            <PrimaryBtn text={"Next"} onClick={handleNext} maxWidth />
-                        </div>
-                    </div>
-                    {/* EMAIL AND PASSWORD BOX */}
-                    <div className='w-100 switchable-box'>
-                        <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setEmail} value={email} textType={"email"} placeholder={"Enter your email"} />
-                        <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setPass} value={pass} textType={"password"} placeholder={"Enter your Password"} />
-                        {
-                            isEmailEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Email and Password.</p> : ""
-                        }
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
-                        <div className='flex justify-between'>
-                            <PrimaryBtn text={"Prev"} onClick={handlePrev} maxWidth />
-                            <PrimaryBtn text={"Next"} onClick={handleNext} maxWidth />
-                        </div>
-                    </div>
-                    {/* COVER BOX */}
-                    <div className='w-100 switchable-box'>
-                        <input type='file'  />
-                        {
-                            isDpEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Email and Password.</p> : ""
-                        }
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
-                        <div className='flex justify-between'>
-                            <PrimaryBtn text={"Prev"} onClick={handlePrev} maxWidth />
-                            <PrimaryBtn text={"Get Started"} classes={"ml-2"} />
-                        </div>
-                    </div>
-                </div>
+                <RegisterBox value={value} />
             </div>
             <div className='my-2 flex justify-center'>
                 <Link to={"/login"} className='link text-main paragraph'>Login</Link>
