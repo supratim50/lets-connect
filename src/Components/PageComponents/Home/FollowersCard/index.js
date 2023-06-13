@@ -23,8 +23,8 @@ const FollowersCard = () => {
 
         <div className={`followers pb-2 px-3`} onScroll={getScrollPosition}>
         {
-            followers.map((item) => (
-                <div className='mt-2 py-2 px-1 flex justify-between follower'>
+            followers.map((item, index) => (
+                <div className='mt-2 py-2 px-1 flex justify-between follower' key={index}>
                     <ShowProfileCard
                         profileImage={profileImage}
                         name={"Elon Musk"}

@@ -4,7 +4,7 @@ import "./TextInput.style.css";
 import IconButton from '../../IconButton/IconButton';
 
 
-const TextInput = ({icon, classes, inputClass, placeholder, resize, onChange, value, textType}) => {
+const TextInput = ({icon, classes, inputClass, placeholder, resize, onChange, value, textType, handleKey}) => {
 
   // const textareaRef = useRef(null);
   const [height, setHeight] = useState(0);
@@ -53,6 +53,7 @@ const TextInput = ({icon, classes, inputClass, placeholder, resize, onChange, va
               placeholder={placeholder ? placeholder : ''} 
               className={`text-input ${inputClass ? inputClass : ''}`} 
               onChange={setValueHnadler}
+              onKeyDown={handleKey ? handleKey : null}
             />
         }
     </div>

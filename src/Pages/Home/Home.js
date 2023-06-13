@@ -91,7 +91,7 @@ const Home = () => {
           <div className='mx-2 px-3 flex newsfeed-section'>      
           {/* FOR POST SECTION */}
           <div className='flex-fill newsfeed'>
-            <PostCard />
+            <PostCard photoURL={currentUser.photoURL} />
             {
               posts.map((post) => (
                 <NewsFeed  

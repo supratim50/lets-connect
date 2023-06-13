@@ -7,3 +7,31 @@
     background-color: var(--background);
     z-index: 1;
 }
+
+.searchComponent {
+    width: 100%;
+    max-width: 700px;
+    background-color: var(--primary-color);
+    max-height: 700px;
+    border-radius: 10px;
+    border: 2px solid var(--background2);
+    /* box-shadow: 0 0 7px 2px var(--dark-light); */
+
+    position: absolute;
+    top: 77px;
+    left: 28px;
+    z-index: 2;
+}
+
+.user {
+    border-radius: 10px;
+}
+
+.user:hover {
+    background-color: var(--primary-color);
+}
+
+.cross {
+    height: 30px;
+    width: 30px;
+}

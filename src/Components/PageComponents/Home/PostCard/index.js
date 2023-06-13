@@ -10,7 +10,7 @@ import IconTextButton from '../../../Common/Buttons/IconTextButton';
 
 import {IoImage, IoPlayCircle, IoListCircle, IoCalendar} from "react-icons/io5";
 
-const PostCard = () => {
+const PostCard = ({photoURL}) => {
 
   const [textValue, setTextValue] = useState("");
 
@@ -18,7 +18,7 @@ const PostCard = () => {
     <ContentCard classes={"py-2 px-3"}>
         <div className='flex align-center px-1'>
             <div >
-                <RoundedImage image={ProfileImage} classes={"medium"} />
+                <RoundedImage image={photoURL ? photoURL : ''} classes={"medium"} />
             </div>
             <TextInput 
               placeholder={"What's Happening?"} 
