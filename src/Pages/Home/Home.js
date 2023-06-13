@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom"
-import {onAuthStateChanged} from "firebase/auth"
-import {firebaseAuth} from "../../Middleware/db/userAuth";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import "./Home.style.css";
 
 import ProfileCard from "../../Components/PageComponents/Home/ProfileCard/ProfileCard"
 import PostCard from '../../Components/PageComponents/Home/PostCard';
 import NewsFeed from '../../Components/PageComponents/Home/NewsFeed';
+import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
 
 import testPhoto01 from "../../Assets/Images/photoTest01.jpg";
 import testPhoto02 from "../../Assets/Images/photoTest02.jpg";
@@ -16,9 +15,7 @@ import testPhoto04 from "../../Assets/Images/photoTest04.jpg";
 import testPhoto05 from "../../Assets/Images/photoTest05.jpg";
 import testPhoto06 from "../../Assets/Images/photoTest06.jpg";
 import ProfileImage from "../../Assets/Images/profile.png";
-import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
-
-import { isLogin } from '../../Middleware/db/userAuth';
+import cover from "../../Assets/Images/cover.png";
 
 const posts = [
   {
@@ -73,35 +70,22 @@ const posts = [
 
 const Home = () => {
 
-  const navigate = useNavigate();
-
-  const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    onAuthStateChanged(firebaseAuth, user => {
-      if(user) setUser(user)
-      else setUser(null)
-    });
-
-    if(user === null) {
-      navigate("/login");
-      setIsLoading(false);
-    } else {
-      setIsLoading(false)
-    }
-  }, [user])
+  const {currentUser} = useContext(AuthContext);
 
   return (
     <>
-        {
-          isLoading 
-          ? <div className='page paragraph text-paragraph'>Loading...</div>
-          : <div className='page'>
+         <div className='page'>
           {/* FOR PROFILE CARD */}
           <div className='position-fixed side-details profile-details'>
-            <ProfileCard />
+            <ProfileCard 
+              name={currentUser.displayName} 
+              email={currentUser.email}
+              profile={currentUser.photoURL}
+              cover={cover}
+              about={"Web Developer"}
+              followings={"699"}
+              followers={"6,999"}
+            />
           </div>
   
           <div className='mx-2 px-3 flex newsfeed-section'>      
@@ -129,7 +113,6 @@ const Home = () => {
             <FollowersCard />
           </div>
           </div>
-        }
     </>
   )
 }

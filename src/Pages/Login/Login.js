@@ -2,25 +2,33 @@ import React, { useState } from 'react';
 import "./Login.style.css";
 import TextInput from '../../Components/Common/Input/TextInput/TextInput';
 import PrimaryBtn from '../../Components/Common/Buttons/PrimaryBtn';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {signinUser} from "../../Middleware/db/userAuth";
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
+
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
 
     const loginUser = async (e) => {
         if(email!== "" && pass !== "") {
             try{
-                const response = await signinUser(email, pass);
-                console.log(response);
+                await signinUser(email, pass);
+                setErr(false);
+                navigate("/");
             } catch(e) {
-                console.log("Enter valid email and password")
+                setErr(true);
+                setErrMsg("*Incorrect Email and Password!")
             }
         } else {
-            console.log("Please Enter Email and Password!!")
+            setErr(true);
+            setErrMsg("*Please Enter Email and Password!")
         }
     }
 
@@ -31,6 +39,9 @@ const Login = () => {
             <div className='my-3 w-100'>
                     <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setEmail} value={email} textType={"email"} placeholder={"Enter your email"} />
                     <TextInput classes={"my-2"} inputClass={"py-2 px-3 w-100 paragraph text-paragraph"} onChange={setPass} value={pass} textType={"password"} placeholder={"Enter your Password"} />
+                    {
+                        err ? <p className='paragraph-sm text-danger mb-2'>{errMsg}</p> : ""
+                    }
                     <PrimaryBtn text={"Signin"} onClick={loginUser} />
             </div>
             <div className='my-2 flex justify-center'>

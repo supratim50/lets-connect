@@ -5,10 +5,8 @@ import "./Register.style.css";
 // COMPONENTS
 import { signupUser } from '../../Middleware/db/userAuth';
 import RegisterBox from '../../Components/PageComponents/Register/RegisterBox';
-//IMAGES
-import Profile from "../../Assets/Images/profile.png";
 // MIDDLEWARE
-import { getImage, uploadFile } from '../../Middleware/db/CURD';
+import { getImage, uploadFile, setUserData } from '../../Middleware/db/CURD';
 
 const Register = () => {
     
@@ -19,18 +17,15 @@ const Register = () => {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
-    const [dp, setDp] = useState();
-    const [dpPath, setDpPath] = useState(Profile);
+    const [dpPath, setDpPath] = useState("https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg");
     const [isImgLoading, setImgLoading] = useState(false);
 
+    // UPLOADING PROFILE IMAGE
     const fileHandler = async (e) => {
         setImgLoading(true);
-        setDp(e.target.files[0]);
-        const dp_url = await uploadFile(e.target.files[0]);
+        const dp_url = await uploadFile(e.target.files[0], email);
         // getting the path
-        const imageUrl = dp_url.ref.fullPath;
-        // get the download URL
-        setDpPath(await getImage(imageUrl));
+        setDpPath(dp_url);
         setImgLoading(false);
     }
 
@@ -39,21 +34,23 @@ const Register = () => {
         userName, 
         email, 
         pass, 
-        dp, 
         setName, 
         setUserName, 
         setEmail, 
         setPass, 
-        setDp: fileHandler,
+        setFile: fileHandler,
         dpPath,
         isImgLoading
     }
     
     // Register function
     const createUser = async (e) => {
-        if(email!== "" && pass !== "") {
+        if(email!== "" && pass !== "" && name !== "" && userName !== "") {
             // setIsEmpty(false);
-            const response = await signupUser(email, pass);
+            const user = await signupUser(email, pass, name, dpPath);
+            const userResponse = await setUserData(user.displayName, userName, user.email, user.photoURL, user.uid);
+            console.log("signUp", user);
+            console.log("userDetails", userResponse);
             navigate("/");
         } else {
             console.log("Please Enter Email and Password!!");
@@ -67,7 +64,7 @@ const Register = () => {
             <p className='heading text-heading my-3'>Register</p>
             {/* animated section */}
             <div className='overflow-hide'>
-                <RegisterBox value={value} />
+                <RegisterBox value={value} createUser={createUser} />
             </div>
             <div className='my-2 flex justify-center'>
                 <Link to={"/login"} className='link text-main paragraph'>Login</Link>

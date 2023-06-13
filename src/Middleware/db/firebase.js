@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDPzqBUw5Jtz3mPEVDevXZeCkIrypDoT5w",
-  authDomain: "lets-connect-68644.firebaseapp.com",
-  projectId: "lets-connect-68644",
-  storageBucket: "lets-connect-68644.appspot.com",
-  messagingSenderId: "697658230806",
-  appId: "1:697658230806:web:51ba90fac5beafc3afcd37"
+  apiKey: "AIzaSyBsFIDqKLHU4GckPjXYzbctB2KGEFPtvC8",
+  authDomain: "social-connect-7059c.firebaseapp.com",
+  projectId: "social-connect-7059c",
+  storageBucket: "social-connect-7059c.appspot.com",
+  messagingSenderId: "515318271815",
+  appId: "1:515318271815:web:04b559a45bfe1648288662"
 };
 
 // Initialize Firebase

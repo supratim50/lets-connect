@@ -7,7 +7,7 @@ import PrimaryBtn from '../../../Common/Buttons/PrimaryBtn';
 
 import {IoCamera, IoHourglass} from "react-icons/io5";
 
-const RegisterBox = ({value}) => {
+const RegisterBox = ({value, createUser}) => {
 
     // Login Handler
     const [isNameEmpty, setIsNameEmpty] = useState(false);
@@ -20,14 +20,12 @@ const RegisterBox = ({value}) => {
 
     // Animation NEXT function
     const handleNext = () => {
-        console.log("Handle Next clicked!");
 
         const animatedBox = document.getElementById("animated-box");
 
         const boxWidth = animatedBox.offsetWidth;
 
         if(translate == 0) {
-            console.log(value.name)
             if(value.name != "" && value.userName != "") {
                 setIsNameEmpty(false);
                 let newTranslateValue = Number(translate) - boxWidth;
@@ -54,8 +52,6 @@ const RegisterBox = ({value}) => {
 
     // Animation PREVIOUS function
     const handlePrev = () => {
-        console.log("Handle Prev clicked!");
-
         const boxWidth = animatedBox.offsetWidth;
 
         let newTranslateValue = Number(translate) + boxWidth;
@@ -74,7 +70,6 @@ const RegisterBox = ({value}) => {
 
     // SET STYLE TRANSLATE
     useEffect(() => {
-        console.log(`translateX(${translate}px)`);
         if(animatedBox) {
             animatedBox.style.transform = `translateX(${translate}px)`;
         }
@@ -93,7 +88,6 @@ const RegisterBox = ({value}) => {
                                 isNameEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Name and Username.</p> : ""
                             }
                         </div>
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
                         <div className='flex justify-end'>
                             <PrimaryBtn text={"Next"} onClick={handleNext} maxWidth />
                         </div>
@@ -107,7 +101,6 @@ const RegisterBox = ({value}) => {
                                 isEmailEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Valid Email and Password.</p> : ""
                             }
                         </div>
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
                         <div className='flex justify-between'>
                             <PrimaryBtn text={"Prev"} onClick={handlePrev} maxWidth />
                             <PrimaryBtn text={"Next"} onClick={handleNext} maxWidth />
@@ -116,7 +109,7 @@ const RegisterBox = ({value}) => {
                     {/* DP BOX */}
                     <div className='w-100 switchable-box'>
                         <div className='form flex justify-center align-center'>
-                            <input type='file' id="dp-input" onChange={value.setDp} />
+                            <input type='file' id="dp-input" onChange={value.setFile} />
                             <div className='flex jsutify-center align-center register-profile_box'>
                                 <img src={value.dpPath} className='profile-img' />
                                 {
@@ -132,10 +125,9 @@ const RegisterBox = ({value}) => {
                         {
                             isDpEmpty ? <p className='paragraph-sm text-danger mb-2'>* Please enter Email and Password.</p> : ""
                         }
-                        {/* <PrimaryBtn text={"Create Account"} onClick={createUser} /> */}
                         <div className='flex justify-between'>
                             <PrimaryBtn text={"Prev"} onClick={handlePrev} maxWidth />
-                            <PrimaryBtn text={"Get Started"} classes={"ml-2"} />
+                            <PrimaryBtn text={"Get Started"} classes={"ml-2"} onClick={createUser} />
                         </div>
                     </div>
                 </div>
