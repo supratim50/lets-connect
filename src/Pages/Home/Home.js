@@ -7,6 +7,7 @@ import ProfileCard from "../../Components/PageComponents/Home/ProfileCard/Profil
 import PostCard from '../../Components/PageComponents/Home/PostCard';
 import NewsFeed from '../../Components/PageComponents/Home/NewsFeed';
 import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
+import { getUserById } from '../../Middleware/db/CURD';
 
 import testPhoto01 from "../../Assets/Images/photoTest01.jpg";
 import testPhoto02 from "../../Assets/Images/photoTest02.jpg";
@@ -15,7 +16,6 @@ import testPhoto04 from "../../Assets/Images/photoTest04.jpg";
 import testPhoto05 from "../../Assets/Images/photoTest05.jpg";
 import testPhoto06 from "../../Assets/Images/photoTest06.jpg";
 import ProfileImage from "../../Assets/Images/profile.png";
-import cover from "../../Assets/Images/cover.png";
 
 const posts = [
   {
@@ -70,7 +70,10 @@ const posts = [
 
 const Home = () => {
 
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser, user} = useContext(AuthContext);
+
+  console.log(user)
+
 
   return (
     <>
@@ -78,10 +81,10 @@ const Home = () => {
           {/* FOR PROFILE CARD */}
           <div className='position-fixed side-details profile-details'>
             <ProfileCard 
-              name={currentUser.displayName} 
-              email={currentUser.email}
-              profile={currentUser.photoURL}
-              cover={cover}
+              name={user.name} 
+              email={user.email}
+              profile={user.profileUrl}
+              cover={user.coverPhoto}
               about={"Web Developer"}
               followings={"699"}
               followers={"6,999"}
@@ -91,7 +94,7 @@ const Home = () => {
           <div className='mx-2 px-3 flex newsfeed-section'>      
           {/* FOR POST SECTION */}
           <div className='flex-fill newsfeed'>
-            <PostCard photoURL={currentUser.photoURL} />
+            <PostCard currentUser={user} />
             {
               posts.map((post) => (
                 <NewsFeed  

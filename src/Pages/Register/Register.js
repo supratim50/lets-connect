@@ -18,6 +18,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [dpPath, setDpPath] = useState("https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg");
+    const [coverPhoto, setCoverPhoto] = useState("https://marketplace.canva.com/EAFSUH0EweU/1/0/1600w/canva-black-elegant-personal-linkedin-banner-eEN5zzEf5VA.jpg");
     const [isImgLoading, setImgLoading] = useState(false);
 
     // UPLOADING PROFILE IMAGE
@@ -48,7 +49,7 @@ const Register = () => {
         if(email!== "" && pass !== "" && name !== "" && userName !== "") {
             // setIsEmpty(false);
             const user = await signupUser(email, pass, name, dpPath);
-            const userResponse = await setUserData(user.displayName, userName, user.email, user.photoURL, user.uid);
+            const userResponse = await setUserData(user.displayName, userName, user.email, user.photoURL, user.uid, coverPhoto);
             console.log("signUp", user);
             console.log("userDetails", userResponse);
             navigate("/");

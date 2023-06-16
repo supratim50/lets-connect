@@ -5,6 +5,7 @@
 }
 
 .profile-details {
+    min-width: 300px;
     left: 28px;
 }
 
@@ -37,6 +38,9 @@
         justify-content: flex-end;
         width: 68%;
         margin-left: auto !important;
+    }
+    .profile-details {
+        min-width: 25%;
     }
     .side-details{
         width: 25% !important;

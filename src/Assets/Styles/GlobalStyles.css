@@ -71,6 +71,9 @@
 .text-danger {
     color: #f14d4d;
 }
+.text-pass {
+    color: #83d067;
+}
 
 .text-heading {
     color: var(--heading-color);
