@@ -2,7 +2,20 @@ import {v4 as uuidv4 } from "uuid";
 import {firebaseApp} from "./firebase";
 
 import {getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable} from "firebase/storage";
-import {getFirestore, collection, addDoc, query, where, getDocs} from "firebase/firestore";
+import {
+    getFirestore, 
+    collection, 
+    addDoc, 
+    query, 
+    where, 
+    getDocs, 
+    Timestamp, 
+    getDoc, 
+    updateDoc, 
+    doc, 
+    arrayUnion,
+    arrayRemove
+} from "firebase/firestore";
 
 const storage = getStorage(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -16,7 +29,8 @@ export const uploadFile = async (file, email) => {
         return e
     }
 }
-export const uploadFileForPosts = async (file, email, setProgress, setfilePath) => {
+export const uploadFileForPosts = async (file, email, setProgress, setfilePath, setIsLoading) => {
+    setIsLoading(true);
     const storageRef = ref(storage, `uploads/posts/${email}-${uuidv4()}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -34,6 +48,8 @@ export const uploadFileForPosts = async (file, email, setProgress, setfilePath) 
         console.log('File available at', downloadURL);
         setfilePath(downloadURL);
         });
+        
+        setIsLoading(false);
     }
     );
 
@@ -54,17 +70,28 @@ export const setUserData = async (name, userName, email, profileImg, uid, coverP
     })
 }
 
-export const setPostData = async (name, email, postImg, caption) => {
-    console.log("Name", name);
-    console.log("email", email);
-    console.log("postImg", postImg);
-    console.log("caption", caption);
+export const setPostData = async (name, email, profileImg, postImg, caption) => {
     return await addDoc(collection(firestore, 'posts'), {
-        name: name,
+        name,
         email,
-        postImg,
-        caption
+        profileImg,
+        image: postImg,
+        caption,
+        postedTime: Date.now(),
+        likes: [],
+        comments: []
     })
+}
+
+export const likingPost = async (postId, userId) => {
+    return await updateDoc(doc(firestore, "posts", postId), {
+        likes: arrayUnion(userId)
+      });
+}
+export const likeUndo = async (postId, userId) => {
+    return await updateDoc(doc(firestore, "posts", postId), {
+        likes: arrayRemove(userId)
+      });
 }
 
 // READ DATA
@@ -84,9 +111,6 @@ export const getUser = async (userName) => {
         querySnapshot.forEach((doc) => {
             // adding data to an array 
             users = [...users, {...doc.data()}]
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-        // console.log(users);
         });
 
         return users;
@@ -114,4 +138,18 @@ export const getUserById = async (uid) => {
         console.log("User is not found")
     } 
 
+}
+
+export const getPosts = async () => {
+    let posts = [];
+    try {
+        const postsSnapshot = await getDocs(collection(firestore, "posts"));
+        postsSnapshot.forEach((post) => {
+            posts.push({...post.data(), id: post.id});
+        })
+    } catch(e) {
+        console.log(e.message);
+    }
+
+    return posts;
 }

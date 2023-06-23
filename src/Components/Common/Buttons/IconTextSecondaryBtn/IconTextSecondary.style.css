@@ -4,5 +4,13 @@
     background-color: var(--background2);
     min-width: calc((100% - 24px) / 3);
     cursor: pointer;
+}
 
+.IconTextSecondary-button.active {
+    border: 1px solid #ee1b1b;
+    
+}
+
+.btn-icon.active {
+    color: #ee1b1b;
 }

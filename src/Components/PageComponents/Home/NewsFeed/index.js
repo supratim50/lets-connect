@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./NewsFeed.style.css";
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from '../../../Common/Images/RoundedImage';
@@ -6,30 +6,59 @@ import IconTextSecondaryBtn from '../../../Common/Buttons/IconTextSecondaryBtn';
 
 import {IoHeart, IoChatbubbleEllipses, IoShare} from "react-icons/io5"
 import ShowProfileCard from '../../../Common/Crads/ShowProfileCard';
+import { AuthContext } from '../../../../contexts/AuthContext';
+import { likeUndo, likingPost } from '../../../../Middleware/db/CURD';
 
-const NewsFeed = ({profileImage, name, userName, postedTime, caption, image}) => {
+const NewsFeed = ({post}) => {
+
+  const { user } = useContext(AuthContext);
+
+  const [like, setlike] = useState(false);
+
+  const LikeHandler = () => {
+    setlike(!like);
+  }
+
+  // LIKING 
+  const LikingPost = async () => {
+    const like = await likingPost(post.id, user.uid);
+    console.log(like)
+  }
+  // UNLIKING
+  const LikeUndo = async () => {
+    const like = await likeUndo(post.id, user.uid);
+    console.log(like)
+  }
+
+  useEffect(() => {
+    if(like) {
+      LikingPost();
+    } else {
+      LikeUndo();
+    }
+  },[like])
 
   return (
     <ContentCard classes={"py-2 px-3 my-2"}>
       <ShowProfileCard
-        profileImage={profileImage}
-        name={name}
-        userName={userName}
-        postedTime={postedTime}  
+        profileImage={post.profileImg}
+        name={post.name}
+        email={post.email}
+        postedTime={post.postedTime}  
       />
 
       <div className='py-2'>
         <div>
-          <p className='paragraph text-paragraph'>{caption}</p>
+          {post.caption && <p className='paragraph text-paragraph'>{post.caption}</p>}
         </div>
         {/* <div className='flex justify-center'> */}
           {
-            image ? 
+            post.image &&
             <div className='media-box flex justify-center mt-1'>
               <div className='postImageBox'>
-                <img src={image} className='postImage' alt='Post' />
+                <img src={post.image} className='postImage' alt='Post' />
               </div>
-            </div> : null
+            </div>
           }
         {/* </div> */}
 
@@ -38,9 +67,9 @@ const NewsFeed = ({profileImage, name, userName, postedTime, caption, image}) =>
           <div>
             <div className='flex align-center'>
               <div className='flex'>
-                <RoundedImage image={profileImage} classes={"small"} styles={styles.imageStyle} />
-                <RoundedImage image={profileImage} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
-                <RoundedImage image={profileImage} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                <RoundedImage image={post.profileImg} classes={"small"} styles={styles.imageStyle} />
+                <RoundedImage image={post.profileImg} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                <RoundedImage image={post.profileImg} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
               </div>
               <div className='ml-1'>
                 <p className='paragraph-sm text-paragraph2'>120k Like</p>
@@ -56,7 +85,7 @@ const NewsFeed = ({profileImage, name, userName, postedTime, caption, image}) =>
 
         {/* LIKE AND COMMENT BUTTON */}
         <div className='flex mt-1'>
-          <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} />
+          <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} active={like} onClick={LikeHandler} />
           <IconTextSecondaryBtn icon={<IoChatbubbleEllipses />} text={"Comment"} classes={"py-2 px-3 mr-2"} />
           <IconTextSecondaryBtn icon={<IoShare />} text={"Share"} classes={"py-2 px-3"} />
         </div>

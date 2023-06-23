@@ -7,73 +7,24 @@ import ProfileCard from "../../Components/PageComponents/Home/ProfileCard/Profil
 import PostCard from '../../Components/PageComponents/Home/PostCard';
 import NewsFeed from '../../Components/PageComponents/Home/NewsFeed';
 import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
-import { getUserById } from '../../Middleware/db/CURD';
-
-import testPhoto01 from "../../Assets/Images/photoTest01.jpg";
-import testPhoto02 from "../../Assets/Images/photoTest02.jpg";
-import testPhoto03 from "../../Assets/Images/photoTest03.jpg";
-import testPhoto04 from "../../Assets/Images/photoTest04.jpg";
-import testPhoto05 from "../../Assets/Images/photoTest05.jpg";
-import testPhoto06 from "../../Assets/Images/photoTest06.jpg";
-import ProfileImage from "../../Assets/Images/profile.png";
-
-const posts = [
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto01
-  },
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto02
-  },
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto03
-  },
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto04
-  },
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto05
-  },
-  {
-    caption: "But to use this Unicode correctly, remove the U+ and replace it with ampersand (&), pound sign (#), and x. Then type the 2022 number in, and then add a semi-colon. So, it becomes &#x2022;.",
-    name: "Elon Musk",
-    userName: "elonmusk01",
-    profileImage: ProfileImage,
-    postedTime: "10 hours ago",
-    image: testPhoto06
-  },
-]
+import { PostContext } from '../../contexts/PostContext';
+import { getPosts, getUserById } from '../../Middleware/db/CURD';
 
 const Home = () => {
 
-  const {currentUser, user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const {posts, dispatch} = useContext(PostContext);
 
-  console.log(user)
+  useEffect(() => {
+    const unsub = async () => {
 
+      const getData = await getPosts();
+      console.log("getData",getData)
+      dispatch({type: "SET", payload: getData});
+    }
+
+    return () => unsub()
+  }, [])
 
   return (
     <>
@@ -96,16 +47,18 @@ const Home = () => {
           <div className='flex-fill newsfeed'>
             <PostCard currentUser={user} />
             {
-              posts.map((post) => (
-                <NewsFeed  
-                  caption={post.caption} 
-                  name={post.name}
-                  userName={post.userName}
-                  profileImage={post.profileImage}
-                  postedTime={post.postedTime}
-                  image={post.image}
-                />
-              ))
+              // console.log(posts)
+              posts.length > 0 
+              && (
+                posts.map((post) => {
+                  return (
+                    <NewsFeed  
+                      post={post}
+                    />
+                  )
+                })
+              )
+
             }
             
           </div>

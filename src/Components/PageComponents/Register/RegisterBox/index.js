@@ -109,7 +109,7 @@ const RegisterBox = ({value, createUser}) => {
                     {/* DP BOX */}
                     <div className='w-100 switchable-box'>
                         <div className='form flex justify-center align-center'>
-                            <input type='file' id="dp-input" onChange={value.setFile} />
+                            <input type='file' id="dp-input" onChange={value.setFile} accept='.jpg, .png, .jpeg' />
                             <div className='flex jsutify-center align-center register-profile_box'>
                                 <img src={value.dpPath} className='profile-img' />
                                 {

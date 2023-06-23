@@ -3,6 +3,7 @@
     border-radius: 75px;
     cursor: pointer;
     border: none;
+    min-width: 100px;
 }
 
 .primary-button p{
@@ -10,5 +11,5 @@
 }
 
 .max-width {
-    max-width: 100px;
+    max-width: 110px;
 }

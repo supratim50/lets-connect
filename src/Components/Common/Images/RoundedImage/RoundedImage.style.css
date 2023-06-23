@@ -1,6 +1,9 @@
 
 .rounded-box {
     border-radius: 50%;
+    background-image: url(https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     /* overflow: hidden; */
 }
 .rounded-photo {
@@ -9,6 +12,7 @@
     object-fit: cover;
     border-radius: inherit;
 }
+
 
 .large {
     width: 75px;

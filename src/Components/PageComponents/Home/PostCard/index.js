@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "./PostCard.style.css";
+
+import { PostContext } from '../../../../contexts/PostContext';
 
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from '../../../Common/Images/RoundedImage';
@@ -13,16 +15,16 @@ import { setPostData, uploadFileForPosts } from '../../../../Middleware/db/CURD'
 
 const PostCard = ({currentUser}) => {
 
+  const {dispatch} = useContext(PostContext);
+
   const [textValue, setTextValue] = useState("");
   const [filePath, setfilePath] = useState("");
-
   const [progress, setProgress] = useState("");
-
-  console.log("post card",currentUser);
+  const [isLoading, setIsLoading] = useState(false);
 
   // FILE UPLOAD
   const fileHandler = (e) => {
-    uploadFileForPosts(e.target.files[0], currentUser.email, setProgress, setfilePath);
+    uploadFileForPosts(e.target.files[0], currentUser.email, setProgress, setfilePath, setIsLoading);
   }
 
   const post = async () => {
@@ -34,9 +36,21 @@ const PostCard = ({currentUser}) => {
     } else {
       console.log(filePath)
         try{
-          await setPostData(currentUser.name, currentUser.email, filePath, textValue);
+          const post = await setPostData(currentUser.name, currentUser.email, currentUser.profileUrl, filePath, textValue);
+          dispatch({type: "ADD", payload: {
+            id: post.id,
+            caption: textValue,
+            name: currentUser.name,
+            email: currentUser.email,
+            profileImg: currentUser.profileUrl,
+            postedTime: Date.now(),
+            image: filePath
+          }})
+          setTextValue("");
+          setfilePath("");
+          setProgress("");
         } catch(e) {
-          console.log("Couldn't Upload you POST!", e);
+          console.log("Couldn't Upload your POST!", e);
         }
     }
 
@@ -80,7 +94,12 @@ const PostCard = ({currentUser}) => {
           <input type='file' id="file" onChange={fileHandler} />
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"blue"} icon={<IoPlayCircle />} text={"Video"} />
           <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"red"} icon={<IoListCircle />} text={"Story"} />
-          <PrimaryBtn text={"Post"} maxWidth onClick={post} />
+          {
+            isLoading
+            ? <PrimaryBtn text={"Uploading"} maxWidth />
+            : <PrimaryBtn text={"Post"} maxWidth onClick={post} />
+          }
+          
         </div>
     </ContentCard>
   )
