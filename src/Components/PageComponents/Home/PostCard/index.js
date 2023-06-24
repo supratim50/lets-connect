@@ -92,8 +92,8 @@ const PostCard = ({currentUser}) => {
             />
           </label>
           <input type='file' id="file" onChange={fileHandler} />
-          <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"blue"} icon={<IoPlayCircle />} text={"Video"} />
-          <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"red"} icon={<IoListCircle />} text={"Story"} />
+            {/* <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"blue"} icon={<IoPlayCircle />} text={"Video"} />
+            <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"red"} icon={<IoListCircle />} text={"Story"} /> */}
           {
             isLoading
             ? <PrimaryBtn text={"Uploading"} maxWidth />

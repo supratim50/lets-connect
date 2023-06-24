@@ -7,10 +7,13 @@
 }
 
 .IconTextSecondary-button.active {
-    border: 1px solid #ee1b1b;
+    background-color: var(--main-color) !important;
     
 }
 
 .btn-icon.active {
-    color: #ee1b1b;
+    color: white;
+}
+.btn-text.active {
+    color: white;
 }

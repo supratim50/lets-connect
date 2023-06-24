@@ -11,12 +11,25 @@ import { likeUndo, likingPost } from '../../../../Middleware/db/CURD';
 
 const NewsFeed = ({post}) => {
 
+  console.log(post)
+
   const { user } = useContext(AuthContext);
 
-  const [like, setlike] = useState(false);
+  const [isLiked, setIsLiked] = useState();
+  // const [isLikedByBtn, setIsLikedByBtn] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  // const [likeText, setLikeText] = useState("");
 
   const LikeHandler = () => {
-    setlike(!like);
+    setIsLiked(true);
+    LikingPost();
+    setLikeCount((count) => count + 1);
+  }
+
+  const unLikeHandler = () => {
+    setIsLiked(false);
+    LikeUndo();
+    setLikeCount((count) => count - 1);
   }
 
   // LIKING 
@@ -30,13 +43,43 @@ const NewsFeed = ({post}) => {
     console.log(like)
   }
 
+  // getting data from DB, is user already liked the post or not
+
+  // useEffect(() => {
+  //   const likeCount = post.likes?.length;
+  //   let text;
+  //   console.log(likeCount)
+  //   // setLikeCount(likeCount);
+  //   if(likeCount > 0) {
+  //     const isLiked = post.likes.includes(user.uid);
+  //     if(isLiked) {
+  //       setIsLiked(true);
+  //       if(likeCount === 1) {
+  //         text = "You liked this post";
+  //       } else {
+  //           text = `You and ${likeCount - 1} others liked this post`;
+  //       }
+  //     } else {
+  //       text = `${likeCount} others liked this post`;
+  //     }
+  //   } else {
+  //     text = "Give a 1st like on this post";
+  //   }
+
+  //   setLikeText(text);
+  // }, [])
+
   useEffect(() => {
-    if(like) {
-      LikingPost();
-    } else {
-      LikeUndo();
-    }
-  },[like])
+    const likeCount = post.likes?.length;
+    setLikeCount(likeCount);
+  }, [])
+
+  // When click on the button
+  // useEffect(() => {
+  //   if(isLiked) {
+  //     LikingPost();
+  //   }
+  // },[isLiked])
 
   return (
     <ContentCard classes={"py-2 px-3 my-2"}>
@@ -72,7 +115,7 @@ const NewsFeed = ({post}) => {
                 <RoundedImage image={post.profileImg} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
               </div>
               <div className='ml-1'>
-                <p className='paragraph-sm text-paragraph2'>120k Like</p>
+                <p className='paragraph-sm text-paragraph2'>{likeCount} Likes</p>
               </div>
             </div>
           </div>
@@ -85,7 +128,11 @@ const NewsFeed = ({post}) => {
 
         {/* LIKE AND COMMENT BUTTON */}
         <div className='flex mt-1'>
-          <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} active={like} onClick={LikeHandler} />
+          {
+            isLiked
+            ? <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} active={isLiked} onClick={unLikeHandler} />
+            : <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} onClick={LikeHandler} />
+          }
           <IconTextSecondaryBtn icon={<IoChatbubbleEllipses />} text={"Comment"} classes={"py-2 px-3 mr-2"} />
           <IconTextSecondaryBtn icon={<IoShare />} text={"Share"} classes={"py-2 px-3"} />
         </div>
