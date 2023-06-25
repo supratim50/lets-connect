@@ -72,6 +72,8 @@ const NewsFeed = ({post}) => {
   useEffect(() => {
     const likeCount = post.likes?.length;
     setLikeCount(likeCount);
+    const isLiked = post.likes?.includes(user.uid);
+    isLiked && setIsLiked(true)
   }, [])
 
   // When click on the button

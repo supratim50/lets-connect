@@ -1,6 +1,9 @@
 .profile-page {
     height: 100vh;
 }
+.profile {
+    width: 100%;
+}
 
 .profile-box {
     position: relative;
@@ -40,4 +43,45 @@
     background-size: cover;
 
     border: 5px solid #ffff;
+}
+
+/* PROFILE EDIT */
+.edit-background {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0;
+    transition: 0.4s;
+    visibility: hidden;
+
+    z-index: 99;
+}
+.edit-background.active {
+    visibility: visible;
+    opacity: 0.4;
+}
+.edit-box {
+    content: "";
+    position: absolute;
+    width: 95%;
+    max-width: 800px;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    transition: 0.4s;
+    opacity: 0;
+
+    z-index: 999;
+}
+.edit-box.active {
+    left: 50%;
+    opacity: 1;
+    visibility: visible;
 }

@@ -14,7 +14,8 @@ import {
     updateDoc, 
     doc, 
     arrayUnion,
-    arrayRemove
+    arrayRemove,
+    onSnapshot
 } from "firebase/firestore";
 
 const storage = getStorage(firebaseApp);
@@ -55,7 +56,7 @@ export const uploadFileForPosts = async (file, email, setProgress, setfilePath, 
 
 }
 export const setUserData = async (name, userName, email, profileImg, uid, coverPhoto) => {
-    return await addDoc(collection(firestore, 'users'), {
+    const user =  await addDoc(collection(firestore, 'users'), {
         uid,
         name,
         userName,
@@ -67,9 +68,20 @@ export const setUserData = async (name, userName, email, profileImg, uid, coverP
         following: [],
         coverPhoto,
         profileUrl: profileImg
+    });
+
+    return await updateDoc(doc(firestore, 'users', user.id), {
+        id: user.id
     })
 }
 
+export const updateUserdata = async (id, data) => {
+    // console.log(id, data);
+    const userRef = doc(firestore, "users", id);
+    await updateDoc(userRef, data);
+}
+
+// POSTS
 export const setPostData = async (name, email, profileImg, postImg, caption) => {
     return await addDoc(collection(firestore, 'posts'), {
         name,
@@ -120,20 +132,17 @@ export const getUser = async (userName) => {
 
 }
 
-export const getUserById = async (uid) => {
-
-    let users = [];
+export const getUserById = (uid, setUser) => {
     try{
         const userRef = collection(firestore, "users");
         const q = query(userRef, where("uid", "==", uid));
-
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            // adding data to an array 
-            users = [...users, {...doc.data()}]
-        });
-        console.log("CURD",users);
-        return users;
+        onSnapshot(q, (querySnapshot) => {
+            console.log(querySnapshot);
+            querySnapshot.forEach((doc) => {
+                setUser({...doc.data(), id: doc.data().id})
+                console.log(doc.data().id)
+            });
+          });
     } catch {
         console.log("User is not found")
     } 

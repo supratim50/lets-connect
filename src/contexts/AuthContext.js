@@ -13,11 +13,9 @@ const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         const getUser = onAuthStateChanged(firebaseAuth, user => {
-            setCurrentUser(user);
-            getUserById(user.uid)
-            .then((user) => {
-                setUser(user[0]);
-            })
+            console.log(user.id)
+            setCurrentUser({...user, id: user.id});
+            getUserById(user.uid, setUser);
         })
 
         return () => {

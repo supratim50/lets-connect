@@ -8,13 +8,14 @@ import PostCard from '../../Components/PageComponents/Home/PostCard';
 import NewsFeed from '../../Components/PageComponents/Home/NewsFeed';
 import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
 import { PostContext } from '../../contexts/PostContext';
-import { getPosts, getUserById } from '../../Middleware/db/CURD';
+import { getPosts } from '../../Middleware/db/CURD';
 
 const Home = () => {
 
   const { user } = useContext(AuthContext);
   const {posts, dispatch} = useContext(PostContext);
 
+  // FOR POST
   useEffect(() => {
     const unsub = async () => {
 
@@ -36,9 +37,9 @@ const Home = () => {
               email={user.email}
               profile={user.profileUrl}
               cover={user.coverPhoto}
-              about={"Web Developer"}
-              followings={"699"}
-              followers={"6,999"}
+              about={user.about}
+              followings={user.following?.length}
+              followers={user.followers?.length}
             />
           </div>
   

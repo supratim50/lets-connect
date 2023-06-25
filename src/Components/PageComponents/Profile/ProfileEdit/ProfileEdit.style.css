@@ -1,0 +1,6 @@
+.profile-edit{
+    width: 95%;
+    max-width: 800px;
+    border-radius: 16px;
+    background-color: var(--primary-color);
+}
