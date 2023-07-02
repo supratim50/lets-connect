@@ -116,7 +116,7 @@ const NewsFeed = ({post}) => {
           </div>
           <div>
             <div className=''>
-              <p className='paragraph-sm text-paragraph2'>86 Comment</p>
+              <p className='paragraph-sm text-paragraph2'>88 Dummy Comment</p>
             </div>
           </div>
         </div>

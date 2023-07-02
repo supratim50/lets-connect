@@ -10,7 +10,9 @@ const ProfileCard = ({name, email, profile, cover, about, followings, followers}
     <ContentCard>
         <div className='w-100'>
           {/* COVER PHOTO */}
-          <img className='profile-cover w-100' src={cover} />
+          <div className='cover-background'>
+            <img className='profile-cover w-100' src={cover} />
+          </div>
           {/* PROFILE PHOTO */}
           <div className='flex justify-center profile-image'>
             <RoundedImage image={profile} classes={"large"} />

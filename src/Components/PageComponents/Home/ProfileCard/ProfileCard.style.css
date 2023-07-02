@@ -1,6 +1,12 @@
+.cover-background {
+    background-color: var(--background2);
+    max-height: 75px;
+}
+
 .profile-cover {
     height: 75px;
     object-fit: cover;
+    border: none;
 }
 .profile-image {
     margin-top: -37.5px;

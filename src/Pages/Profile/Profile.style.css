@@ -17,7 +17,7 @@
     height: 150px;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
-    background-color: antiquewhite;
+    background-color: var(--background2);
 }
 .cover-photo {
     width: 100%;
@@ -116,6 +116,26 @@
     z-index: 999;
 }
 .edit-box.active {
+    left: 50%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.uploading-box {
+    content: "";
+    position: absolute;
+    border-radius: 16px;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    transition: 0.4s;
+    opacity: 0;
+    background-color: var(--primary-color);
+
+    z-index: 999;
+}
+.uploading-box.active {
     left: 50%;
     opacity: 1;
     visibility: visible;

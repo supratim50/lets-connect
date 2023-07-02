@@ -18,7 +18,7 @@ const FollowersCard = () => {
   return (
     <ContentCard >
         <div className={`w-100 py-2 px-3 ${scrollTop > 10 ? "shadow" : '' }`}>
-            <p className='paragraph text-heading bold'>Who is Follow You</p>
+            <p className='paragraph text-heading bold'>Dummy Followers</p>
         </div>
 
         <div className={`followers pb-2 px-3`} onScroll={getScrollPosition}>

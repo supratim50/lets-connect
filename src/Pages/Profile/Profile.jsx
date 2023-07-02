@@ -23,7 +23,7 @@ const Profile = () => {
     const [userSkills, setUserSkills] = useState("");
     const [userLocation, setUserLocation] = useState("");
 
-    const [progress, setProgress] = useState("");
+    const [progress, setProgress] = useState(0);
     const [profileImg, setProfileImg] = useState("");
     const [profielCover, setProfielCover] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -169,6 +169,13 @@ const Profile = () => {
                 DBskills={user.skills}
                 DBlocation={user.location}
             />
+        </div>
+
+        {/* IMAGE UPLOAD SECTION */}
+        <div className={`edit-background ${isLoading && "active"}`}></div>
+        <div className={`uploading-box p-3 ${isLoading && "active"}`}>
+            <h3 className='paragraph text-heading'>Uploading..</h3>
+            <p className='paragraph-sm text-paragraph'>{progress && Math.round(progress)}%</p>
         </div>
 
     </div>

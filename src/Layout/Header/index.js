@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 
 import "./header.style.css";
-import { IoHomeSharp, IoNotifications, IoLogoTwitter, IoSearch } from "react-icons/io5";
+import { IoHomeSharp, IoNotifications, IoRocket, IoSearch } from "react-icons/io5";
 
 import IconButton from '../../Components/Common/IconButton/IconButton';
 import ThemeButton from './Themebutton/ThemeButton';
@@ -57,7 +57,7 @@ const Header = ({children, register}) => {
         <div className='w-100 nav-header'>
             <div className='flex px-3 py-1'>
                 <div className='flex align-center'>
-                    <div><Link to="/"><IconButton Icon={<IoLogoTwitter />} classes={"p-2 mr-2 superHeader text-main"} /></Link></div>
+                    <div><Link to="/"><IconButton Icon={<IoRocket />} classes={"p-2 mr-2 superHeader text-main"} /></Link></div>
                     <div>
                         {
                             register
