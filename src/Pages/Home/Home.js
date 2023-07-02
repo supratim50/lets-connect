@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 import "./Home.style.css";
@@ -9,16 +9,17 @@ import NewsFeed from '../../Components/PageComponents/Home/NewsFeed';
 import FollowersCard from '../../Components/PageComponents/Home/FollowersCard';
 import { PostContext } from '../../contexts/PostContext';
 import { getPosts } from '../../Middleware/db/CURD';
+// import {UserContext} from '../../contexts/UserContextProvider';
 
 const Home = () => {
 
   const { user } = useContext(AuthContext);
+  // const { userState } = useContext(UserContext);
   const {posts, dispatch} = useContext(PostContext);
 
   // FOR POST
   useEffect(() => {
     const unsub = async () => {
-
       const getData = await getPosts();
       console.log("getData",getData)
       dispatch({type: "SET", payload: getData});

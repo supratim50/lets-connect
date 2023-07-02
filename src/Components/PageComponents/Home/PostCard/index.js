@@ -83,7 +83,7 @@ const PostCard = ({currentUser}) => {
         }
         </div>
         <div className='py-2 px-1 flex justify-end'>
-          <label for="file">
+          <label htmlFor="file">
             <IconTextButton 
               classes={"px-4 py-2 mr-3"} 
               iconClasses={"green"} 

@@ -30,16 +30,120 @@ export const uploadFile = async (file, email) => {
         return e
     }
 }
+
+// UPDATE PROFILE IMG
+export const updateProfileImg = (file, id, email, setProgress, setfilePath, setIsLoading) => {
+    try {
+        setIsLoading &&  setIsLoading(true);
+        const storageRef = ref(storage, `uploads/profileImages/${email}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed', (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            setProgress && setProgress(progress);
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('File available at', downloadURL);
+                setfilePath(downloadURL);
+                await updateDoc(doc(firestore, 'users', id), {
+                    "profileUrl": downloadURL
+                })
+            });
+            
+            setIsLoading && setIsLoading(false);
+        }
+        );
+    } catch(e) {
+        return e;
+    }
+}
+
+// UPDATE PROFILE IMG
+export const updateCoverPhoto = (file, id, email, setProgress, setfilePath, setIsLoading) => {
+    try {
+        setIsLoading &&  setIsLoading(true);
+        const storageRef = ref(storage, `uploads/coverImages/${email}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed', (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            setProgress && setProgress(progress);
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('File available at', downloadURL);
+                setfilePath(downloadURL);
+                await updateDoc(doc(firestore, 'users', id), {
+                    "coverPhoto": downloadURL
+                })
+            });
+            
+            setIsLoading && setIsLoading(false);
+        }
+        );
+    } catch(e) {
+        return e;
+    }
+}
+
+// UPDATE PROFILE IMG
+export const updateCoverImg = (file, id, email, setProgress, setfilePath, setIsLoading) => {
+    try {
+        setIsLoading &&  setIsLoading(true);
+        const storageRef = ref(storage, `uploads/coverImages/${email}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed', (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            setProgress && setProgress(progress);
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('File available at', downloadURL);
+                setfilePath(downloadURL);
+                await updateDoc(doc(firestore, 'users', id), {
+                    "coverPhoto": downloadURL
+                })
+            });
+            
+            setIsLoading && setIsLoading(false);
+        }
+        );
+    } catch(e) {
+        return e;
+    }
+}
+
+
+
+
+// UPLOAD FOR POST
 export const uploadFileForPosts = async (file, email, setProgress, setfilePath, setIsLoading) => {
-    setIsLoading(true);
-    const storageRef = ref(storage, `uploads/posts/${email}-${uuidv4()}`);
+    setIsLoading &&  setIsLoading(true);
+    const storageRef = ref(storage, `uploads/posts/${email}}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', 
-    (snapshot) => {const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    uploadTask.on('state_changed', (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
-        setProgress(progress);
+        setProgress && setProgress(progress);
     }, 
     (error) => {
         // Handle unsuccessful uploads
@@ -47,10 +151,10 @@ export const uploadFileForPosts = async (file, email, setProgress, setfilePath, 
     () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
-        setfilePath(downloadURL);
+            setfilePath(downloadURL);
         });
         
-        setIsLoading(false);
+        setIsLoading && setIsLoading(false);
     }
     );
 
@@ -74,9 +178,9 @@ export const setUserData = async (name, userName, email, profileImg, uid, coverP
         id: user.id
     })
 }
-
+// UPDATRE USER DATA
 export const updateUserdata = async (id, data) => {
-    // console.log(id, data);
+    console.log(id, data);
     const userRef = doc(firestore, "users", id);
     await updateDoc(userRef, data);
 }
@@ -132,17 +236,27 @@ export const getUser = async (userName) => {
 
 }
 
-export const getUserById = (uid, setUser) => {
+export const getUserById = async (uid, setUser) => {
+    // let user = {};
     try{
         const userRef = collection(firestore, "users");
         const q = query(userRef, where("uid", "==", uid));
+        // REALETIME DATA OF UER
+        // ---------------------
         onSnapshot(q, (querySnapshot) => {
             console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
                 setUser({...doc.data(), id: doc.data().id})
-                console.log(doc.data().id)
             });
           });
+        // ONE TIME 
+        // ---------
+        // const querySnapshot = await getDocs(q);
+        // querySnapshot.forEach((doc) => {
+        //     // adding data to an array 
+        //     user = {...doc.data(), id: doc.data().id};
+        // });
+        // return user;
     } catch {
         console.log("User is not found")
     } 

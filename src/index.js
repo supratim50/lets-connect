@@ -4,17 +4,20 @@ import {BrowserRouter} from "react-router-dom";
 
 import App from "./App";
 import "./Assets/Styles/GlobalStyles.css";
-import AuthContextProvider, { AuthContext } from "./contexts/AuthContext";
+import AuthContextProvider from "./contexts/AuthContext";
 import PostContextProvider from "./contexts/PostContext";
+import UserContextProvider from "./contexts/UserContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <AuthContextProvider>
-        <PostContextProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </PostContextProvider>
-    </AuthContextProvider>
+    <UserContextProvider>
+        <AuthContextProvider>
+            <PostContextProvider>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </PostContextProvider>
+        </AuthContextProvider>
+    </UserContextProvider>
 )

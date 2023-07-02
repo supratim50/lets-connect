@@ -4,40 +4,55 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 import "./Profile.style.css";
 
-import CoverPhoto from "../../Assets/Images/cover.png";
 import ProfileDetails from '../../Components/PageComponents/Profile/ProfileDetails';
 import PrimaryBtn from '../../Components/Common/Buttons/PrimaryBtn';
-
 import {userLogOut} from "../../Middleware/db/userAuth"
 import ProfileEdit from '../../Components/PageComponents/Profile/ProfileEdit';
-import { updateUserdata } from '../../Middleware/db/CURD';
+import { updateCoverPhoto, updateProfileImg, updateUserdata } from '../../Middleware/db/CURD';
+
+import {IoCamera} from "react-icons/io5";
 
 const Profile = () => {
 
-    const {user, currentUser} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [editActive, setEditActive] = useState(false);
+    const [userName, setUserName] = useState("");
     const [userAbout, setUserAbout] = useState("");
     const [userSkills, setUserSkills] = useState("");
     const [userLocation, setUserLocation] = useState("");
 
+    const [progress, setProgress] = useState("");
+    const [profileImg, setProfileImg] = useState("");
+    const [profielCover, setProfielCover] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    // SETTING USER DATA ON 1ST LOAD
     useEffect(() => {
+       setUserName(user.name);
         user.about === "" ? setUserAbout("Please tell us about you!") : setUserAbout(user.about);
         user.skills === "" ? setUserSkills("Please share your skills!") : setUserSkills(user.skills);
         user.location === "" ? setUserLocation("Please share your location!") : setUserLocation(user.location);
-    }, [])
 
+        // set DP 
+        setProfileImg(user?.profileUrl);
+        // set COVER
+        setProfielCover(user?.coverPhoto);
+    }, [user])
 
+    // LOGOUT
     const logOut = () => {
         userLogOut();
         navigate("/login")
     }
 
+    // OENING EDIT VIEW
     const editDetails = () => {
         setEditActive(!editActive);
     }
     
+    // DATA UPDATEING
     const updateData = (name, about, skills, location) => {
         const data = {
             name,
@@ -48,23 +63,75 @@ const Profile = () => {
 
         try {
             updateUserdata(user.id, data);
+            // setting the state
+            setUserAbout(about);
+            setUserLocation(location);
+            setUserSkills(skills);
+            setUserName(name);
+
+            // const updated_details = userDispatch({type: "UPDATE_USER_DETAILS", userDetails: data});
+            // console.log("updated details",updated_details)
+
         } catch(e) {
             console.log(e.message);
         }
+
+        setEditActive(false);
     }
 
+    // UPDATE PROFILE IMAGE
+    const onHandleEditDP = async (e) => {
+        try {
+            await updateProfileImg(e.target.files[0], user.id, user.email, setProgress, setProfileImg, setIsLoading);
+            
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    // UPDATE PROFILE IMAGE
+    const onHandleEditCover = async (e) => {
+        try {
+            await updateCoverPhoto(e.target.files[0], user.id, user.email, setProgress, setProfielCover, setIsLoading);
+            
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
   return (
     <div className='profile-page'>
-        <div className='page profile flex justify-center '>
+        <div className='page profile flex justify-center'>
             <div className='profile-box'>
+                {/* COVER */}
                 <div className='cover'>
-                    <img className='cover-photo' src={user.coverPhoto} />
+                    <img className='cover-photo' src={profielCover} />
+                    {/* EDIT BUTTON */}
+                    <label htmlFor='coverPhoto' className='cover-edit flex justify-center align-center'>
+                        <p className='text-paragraph'>{<IoCamera />}</p>
+                    </label>
+                    <input type="file" id='coverPhoto' onChange={onHandleEditCover} style={{display: 'none'}} />
                 </div>
+                {/* DP */}
                 <div className='dp-box flex align-end justify-between pr-3'>
                     <div className='dp-container flex flex-column align-center'>
-                        <img className='dp' src={user.profileUrl} />
-                        <p className='heading text-heading bold my-2'>{user.name}</p>
+                        <div className='dp-img-box'>
+                            <img className='dp' src={profileImg} />
+                            {/* EDIT BUTTON */}
+                            <div 
+                                className='dp-edit flex justify-center align-center' 
+                                onClick={() => document.getElementById("edit-file").click()}
+                            >
+                                <input 
+                                    type="file" 
+                                    id="edit-file" 
+                                    onChange={onHandleEditDP} 
+                                    accept='.jpg, .png, .jpeg'
+                                />
+                                <p className='text-paragraph'>{<IoCamera />}</p>
+                            </div>
+                        </div>
+                        <p className='heading text-heading bold my-2'>{userName}</p>
                     </div>
 
                     <div className='flex'>

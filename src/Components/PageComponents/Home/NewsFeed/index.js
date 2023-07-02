@@ -75,14 +75,7 @@ const NewsFeed = ({post}) => {
     const isLiked = post.likes?.includes(user.uid);
     isLiked && setIsLiked(true)
   }, [])
-
-  // When click on the button
-  // useEffect(() => {
-  //   if(isLiked) {
-  //     LikingPost();
-  //   }
-  // },[isLiked])
-
+  
   return (
     <ContentCard classes={"py-2 px-3 my-2"}>
       <ShowProfileCard
