@@ -177,11 +177,9 @@ export const updateUserdata = async (id, data) => {
 }
 
 // POSTS
-export const setPostData = async (name, email, profileImg, postImg, caption) => {
+export const setPostData = async ( userId, postImg, caption) => {
     const post = await addDoc(collection(firestore, 'posts'), {
-        name,
-        email,
-        profileImg,
+        userId,
         image: postImg,
         caption,
         postedTime: Date.now(),
@@ -248,7 +246,8 @@ export const getUserById = async (uid, setUser) => {
         //     user = {...doc.data(), id: doc.data().id};
         // });
         // return user;
-    } catch {
+    } catch (e){
+        console.log(e);
     } 
 
 }

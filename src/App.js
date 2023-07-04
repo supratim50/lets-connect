@@ -11,8 +11,6 @@ const App = () => {
 
   const {currentUser} = useContext(AuthContext);
 
-  console.log(currentUser)
-
   const ProtectedRoute = ({children}) => {
     if(!currentUser) {
       return <Navigate to={"/login"} />
@@ -32,7 +30,7 @@ const App = () => {
                 </Header>
               </ProtectedRoute>
             } />
-            <Route path='/profile' element={
+            <Route path='/profile/:id' element={
               <ProtectedRoute>
               <Header>
                 <Profile />

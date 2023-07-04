@@ -1,24 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react';
 import "./NewsFeed.style.css";
+
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from '../../../Common/Images/RoundedImage';
 import IconTextSecondaryBtn from '../../../Common/Buttons/IconTextSecondaryBtn';
 
+import Img from "../../../../Assets/Images/profile.png";
+
 import {IoHeart, IoChatbubbleEllipses, IoShare} from "react-icons/io5"
 import ShowProfileCard from '../../../Common/Crads/ShowProfileCard';
 import { AuthContext } from '../../../../contexts/AuthContext';
-import { likeUndo, likingPost } from '../../../../Middleware/db/CURD';
+import { getUserById, likeUndo, likingPost } from '../../../../Middleware/db/CURD';
+import { useNavigate } from 'react-router-dom';
 
 const NewsFeed = ({post}) => {
 
-  console.log(post)
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
 
   const [isLiked, setIsLiked] = useState();
+  const [author, setAuthor] = useState();
   // const [isLikedByBtn, setIsLikedByBtn] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   // const [likeText, setLikeText] = useState("");
+
+  const clickHandlerOnProfile = () => {
+    navigate(`profile/${author.uid === user.uid ? "me" : author.uid}`);
+  }
 
   const LikeHandler = () => {
     setIsLiked(true);
@@ -35,55 +44,41 @@ const NewsFeed = ({post}) => {
   // LIKING 
   const LikingPost = async () => {
     const like = await likingPost(post.id, user.uid);
-    console.log(like)
   }
   // UNLIKING
   const LikeUndo = async () => {
     const like = await likeUndo(post.id, user.uid);
-    console.log(like)
   }
 
-  // getting data from DB, is user already liked the post or not
-
-  // useEffect(() => {
-  //   const likeCount = post.likes?.length;
-  //   let text;
-  //   console.log(likeCount)
-  //   // setLikeCount(likeCount);
-  //   if(likeCount > 0) {
-  //     const isLiked = post.likes.includes(user.uid);
-  //     if(isLiked) {
-  //       setIsLiked(true);
-  //       if(likeCount === 1) {
-  //         text = "You liked this post";
-  //       } else {
-  //           text = `You and ${likeCount - 1} others liked this post`;
-  //       }
-  //     } else {
-  //       text = `${likeCount} others liked this post`;
-  //     }
-  //   } else {
-  //     text = "Give a 1st like on this post";
-  //   }
-
-  //   setLikeText(text);
-  // }, [])
+  const getuser = async () => {
+      // Set author
+      await getUserById(post.userId, setAuthor);
+  }
 
   useEffect(() => {
-    const likeCount = post.likes?.length;
-    setLikeCount(likeCount);
-    const isLiked = post.likes?.includes(user.uid);
-    isLiked && setIsLiked(true)
+      console.log(post)
+      getuser();
+      //set like count
+      const likeCount = post.likes?.length;
+      setLikeCount(likeCount);
+      const isLiked = post.likes?.includes(user.uid);
+      isLiked && setIsLiked(true)
+
   }, [])
   
   return (
     <ContentCard classes={"py-2 px-3 my-2"} key={post.id}>
-      <ShowProfileCard
-        profileImage={post.profileImg}
-        name={post.name}
-        email={post.email}
-        postedTime={post.postedTime}  
-      />
+      {
+        author && (
+            <ShowProfileCard
+              onClick={clickHandlerOnProfile}
+              profileImage={author.profileUrl && author.profileUrl}
+              name={author.name && author.name}
+              email={author.email && author.name}
+              postedTime={post.postedTime}  
+            />
+        )
+      }
 
       <div className='py-2'>
         <div>
@@ -105,9 +100,9 @@ const NewsFeed = ({post}) => {
           <div>
             <div className='flex align-center'>
               <div className='flex'>
-                <RoundedImage image={post.profileImg} classes={"small"} styles={styles.imageStyle} />
-                <RoundedImage image={post.profileImg} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
-                <RoundedImage image={post.profileImg} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                <RoundedImage image={Img} classes={"small"} styles={styles.imageStyle} />
+                <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
               </div>
               <div className='ml-1'>
                 <p className='paragraph-sm text-paragraph2'>{likeCount} Likes</p>

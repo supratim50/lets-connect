@@ -4,10 +4,10 @@ import "./ShowProfileCard.style.css";
 import RoundedImage from '../../Images/RoundedImage';
 
 
-const ShowProfileCard = ({profileImage, name, email, postedTime, classes}) => {
+const ShowProfileCard = ({profileImage, name, email, postedTime, classes, onClick}) => {
 
   return (
-    <div className={`flex align-center ${classes ? classes : ''}`} key={email}>
+    <div className={`pointer flex align-center ${classes ? classes : ''}`} key={email} onClick={onClick && onClick}>
         <div >
           <RoundedImage image={profileImage ? profileImage : ""} classes={"medium"} />
         </div>

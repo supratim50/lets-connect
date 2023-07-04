@@ -35,13 +35,11 @@ const PostCard = ({currentUser}) => {
       return
     } else {
         try{
-          const postId = await setPostData(currentUser.name, currentUser.email, currentUser.profileUrl, filePath, textValue);
+          const postId = await setPostData(currentUser.uid, filePath, textValue);
           dispatch({type: "ADD", payload: {
             id: postId,
+            userId: currentUser.uid,
             caption: textValue,
-            name: currentUser.name,
-            email: currentUser.email,
-            profileImg: currentUser.profileUrl,
             likes: [],
             postedTime: Date.now(),
             image: filePath

@@ -5,7 +5,7 @@ import "./ProfileCard.style.css";
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from "../../../Common/Images/RoundedImage";
 
-const ProfileCard = ({name, email, profile, cover, about, followings, followers}) => {
+const ProfileCard = ({uid, name, email, profile, cover, about, followings, followers}) => {
   return (
     <ContentCard>
         <div className='w-100'>
@@ -39,7 +39,7 @@ const ProfileCard = ({name, email, profile, cover, about, followings, followers}
           </div>
         </div>
         <div className='p-3 flex justify-center align-center'>
-          <Link to='profile' className='link paragraph text-main'>My Profile</Link>
+          <Link to={`profile/me`} className='link paragraph text-main'>My Profile</Link>
         </div>
       </ContentCard>
   )

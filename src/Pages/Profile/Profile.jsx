@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -8,7 +9,7 @@ import ProfileDetails from '../../Components/PageComponents/Profile/ProfileDetai
 import PrimaryBtn from '../../Components/Common/Buttons/PrimaryBtn';
 import {userLogOut} from "../../Middleware/db/userAuth"
 import ProfileEdit from '../../Components/PageComponents/Profile/ProfileEdit';
-import { updateCoverPhoto, updateProfileImg, updateUserdata } from '../../Middleware/db/CURD';
+import { getUserById, updateCoverPhoto, updateProfileImg, updateUserdata } from '../../Middleware/db/CURD';
 
 import {IoCamera} from "react-icons/io5";
 
@@ -17,7 +18,10 @@ const Profile = () => {
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const [userOnProfile, setUserOnProfile] = useState({});
     const [editActive, setEditActive] = useState(false);
+    const [otherUser, setOtherUser] = useState(false);
+
     const [userName, setUserName] = useState("");
     const [userAbout, setUserAbout] = useState("");
     const [userSkills, setUserSkills] = useState("");
@@ -28,18 +32,35 @@ const Profile = () => {
     const [profielCover, setProfielCover] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    // GETTING USER BY ID
+    const { id } = useParams();
+
+    const getuser = async () => {
+        // Set author
+        await getUserById(id, setUserOnProfile);
+    }  
+
+    useEffect(() => {
+        if(id === "me") {
+            setUserOnProfile(user);
+        } else {
+            getuser();
+            setOtherUser(true);
+        }
+    }, [])
+
     // SETTING USER DATA ON 1ST LOAD
     useEffect(() => {
-       setUserName(user.name);
-        user.about === "" ? setUserAbout("Please tell us about you!") : setUserAbout(user.about);
-        user.skills === "" ? setUserSkills("Please share your skills!") : setUserSkills(user.skills);
-        user.location === "" ? setUserLocation("Please share your location!") : setUserLocation(user.location);
+        setUserName(userOnProfile.name);
+        userOnProfile.about === "" ? setUserAbout("Please tell us about you!") : setUserAbout(userOnProfile.about);
+        userOnProfile.skills === "" ? setUserSkills("Please share your skills!") : setUserSkills(userOnProfile.skills);
+        userOnProfile.location === "" ? setUserLocation("Please share your location!") : setUserLocation(userOnProfile.location);
 
         // set DP 
-        setProfileImg(user?.profileUrl);
+        setProfileImg(userOnProfile?.profileUrl);
         // set COVER
-        setProfielCover(user?.coverPhoto);
-    }, [user])
+        setProfielCover(userOnProfile?.coverPhoto);
+    }, [userOnProfile])
 
     // LOGOUT
     const logOut = () => {
@@ -107,10 +128,16 @@ const Profile = () => {
                 <div className='cover'>
                     <img className='cover-photo' src={profielCover} />
                     {/* EDIT BUTTON */}
-                    <label htmlFor='coverPhoto' className='cover-edit flex justify-center align-center'>
-                        <p className='text-paragraph'>{<IoCamera />}</p>
-                    </label>
-                    <input type="file" id='coverPhoto' onChange={onHandleEditCover} style={{display: 'none'}} />
+                    {
+                        !otherUser && (
+                            <>
+                                <label htmlFor='coverPhoto' className='cover-edit flex justify-center align-center'>
+                                    <p className='text-paragraph'>{<IoCamera />}</p>
+                                </label>
+                                <input type="file" id='coverPhoto' onChange={onHandleEditCover} style={{display: 'none'}} />
+                            </>
+                        )
+                    }
                 </div>
                 {/* DP */}
                 <div className='dp-box flex align-end justify-between pr-3'>
@@ -118,26 +145,36 @@ const Profile = () => {
                         <div className='dp-img-box'>
                             <img className='dp' src={profileImg} />
                             {/* EDIT BUTTON */}
-                            <div 
-                                className='dp-edit flex justify-center align-center' 
-                                onClick={() => document.getElementById("edit-file").click()}
-                            >
-                                <input 
-                                    type="file" 
-                                    id="edit-file" 
-                                    onChange={onHandleEditDP} 
-                                    accept='.jpg, .png, .jpeg'
-                                />
-                                <p className='text-paragraph'>{<IoCamera />}</p>
-                            </div>
+                            {
+                                !otherUser && (
+                                    <div 
+                                        className='dp-edit flex justify-center align-center' 
+                                        onClick={() => document.getElementById("edit-file").click()}
+                                    >
+                                        <input 
+                                            type="file" 
+                                            id="edit-file" 
+                                            onChange={onHandleEditDP} 
+                                            accept='.jpg, .png, .jpeg'
+                                        />
+                                        <p className='text-paragraph'>{<IoCamera />}</p>
+                                    </div>
+                                )
+                            }
                         </div>
                         <p className='heading text-heading bold my-2'>{userName}</p>
                     </div>
 
-                    <div className='flex'>
-                        <PrimaryBtn classes={"mr-2"} text={"Edit"} onClick={editDetails} />
-                        <PrimaryBtn text={"Logout"} onClick={logOut} />
-                    </div>
+                    {
+                        !otherUser 
+                        ?   <div className='flex'>
+                                <PrimaryBtn classes={"mr-2"} text={"Edit"} onClick={editDetails} />
+                                <PrimaryBtn text={"Logout"} onClick={logOut} />
+                            </div>
+                        :   <div className='flex'>
+                                <PrimaryBtn text={"Follow"} />
+                            </div>
+                    }
                 </div>
 
                 <div className='pb-3'>
@@ -164,10 +201,10 @@ const Profile = () => {
         <div className={`edit-box ${editActive && "active"}`}>
             <ProfileEdit 
                 updateData={updateData} 
-                DBname={user.name}
-                DBabout={user.about}
-                DBskills={user.skills}
-                DBlocation={user.location}
+                DBname={userOnProfile.name}
+                DBabout={userOnProfile.about}
+                DBskills={userOnProfile.skills}
+                DBlocation={userOnProfile.location}
             />
         </div>
 

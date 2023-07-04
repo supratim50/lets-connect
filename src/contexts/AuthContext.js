@@ -12,18 +12,17 @@ const AuthContextProvider = ({children}) => {
 
     // const {userDispatch} = useContext(UserContext);
 
-    const [currentUser, setCurrentUser] = useState(null);
-    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState({});
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         const getUser = onAuthStateChanged(firebaseAuth, async user => {
-            setCurrentUser({...user});
+            setCurrentUser(user);
             if(user) {
                 await getUserById(user.uid, setUser);
             }
             // setUser(userbyId);
             // userDispatch({type: "SET_USER", payload: userbyId});
-            // console.log(userbyId);
         })
 
         return () => {

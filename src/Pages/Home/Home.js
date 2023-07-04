@@ -27,16 +27,13 @@ const Home = () => {
     return () => unsub()
   }, []);
 
-  useEffect(() => {
-    console.log(posts);
-  }, [posts])
-
   return (
     <>
          <div className='page'>
           {/* FOR PROFILE CARD */}
           <div className='position-fixed side-details profile-details'>
             <ProfileCard 
+              uid={user.uid}
               name={user.name} 
               email={user.email}
               profile={user.profileUrl}
