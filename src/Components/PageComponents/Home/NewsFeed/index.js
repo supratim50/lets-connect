@@ -77,7 +77,7 @@ const NewsFeed = ({post}) => {
   }, [])
   
   return (
-    <ContentCard classes={"py-2 px-3 my-2"}>
+    <ContentCard classes={"py-2 px-3 my-2"} key={post.id}>
       <ShowProfileCard
         profileImage={post.profileImg}
         name={post.name}

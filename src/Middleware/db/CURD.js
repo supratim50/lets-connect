@@ -41,7 +41,6 @@ export const updateProfileImg = (file, id, email, setProgress, setfilePath, setI
 
         uploadTask.on('state_changed', (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
             setProgress && setProgress(progress);
         }, 
         (error) => {
@@ -49,7 +48,6 @@ export const updateProfileImg = (file, id, email, setProgress, setfilePath, setI
         }, 
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log('File available at', downloadURL);
                 setfilePath(downloadURL);
                 await updateDoc(doc(firestore, 'users', id), {
                     "profileUrl": downloadURL
@@ -74,7 +72,6 @@ export const updateCoverPhoto = (file, id, email, setProgress, setfilePath, setI
 
         uploadTask.on('state_changed', (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
             setProgress && setProgress(progress);
         }, 
         (error) => {
@@ -82,7 +79,6 @@ export const updateCoverPhoto = (file, id, email, setProgress, setfilePath, setI
         }, 
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log('File available at', downloadURL);
                 setfilePath(downloadURL);
                 await updateDoc(doc(firestore, 'users', id), {
                     "coverPhoto": downloadURL
@@ -107,7 +103,6 @@ export const updateCoverImg = (file, id, email, setProgress, setfilePath, setIsL
 
         uploadTask.on('state_changed', (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
             setProgress && setProgress(progress);
         }, 
         (error) => {
@@ -115,7 +110,6 @@ export const updateCoverImg = (file, id, email, setProgress, setfilePath, setIsL
         }, 
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log('File available at', downloadURL);
                 setfilePath(downloadURL);
                 await updateDoc(doc(firestore, 'users', id), {
                     "coverPhoto": downloadURL
@@ -136,13 +130,12 @@ export const updateCoverImg = (file, id, email, setProgress, setfilePath, setIsL
 // UPLOAD FOR POST
 export const uploadFileForPosts = async (file, email, setProgress, setfilePath, setIsLoading) => {
     setIsLoading &&  setIsLoading(true);
-    const storageRef = ref(storage, `uploads/posts/${email}}`);
+    const storageRef = ref(storage, `uploads/posts/${email}-${uuidv4()}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed', (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
         setProgress && setProgress(progress);
     }, 
     (error) => {
@@ -150,7 +143,6 @@ export const uploadFileForPosts = async (file, email, setProgress, setfilePath, 
     }, 
     () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
             setfilePath(downloadURL);
         });
         
@@ -180,14 +172,13 @@ export const setUserData = async (name, userName, email, profileImg, uid, coverP
 }
 // UPDATRE USER DATA
 export const updateUserdata = async (id, data) => {
-    console.log(id, data);
     const userRef = doc(firestore, "users", id);
     await updateDoc(userRef, data);
 }
 
 // POSTS
 export const setPostData = async (name, email, profileImg, postImg, caption) => {
-    return await addDoc(collection(firestore, 'posts'), {
+    const post = await addDoc(collection(firestore, 'posts'), {
         name,
         email,
         profileImg,
@@ -197,6 +188,12 @@ export const setPostData = async (name, email, profileImg, postImg, caption) => 
         likes: [],
         comments: []
     })
+
+    await updateDoc(doc(firestore, 'posts', post.id), {
+        id: post.id
+    })
+
+    return post.id;
 }
 
 export const likingPost = async (postId, userId) => {
@@ -215,15 +212,11 @@ export const getUser = async (userName) => {
 
     let users = [];
 
-    console.log("search.. ", userName)
     try{
-        console.log("searching...");
         const userRef = collection(firestore, "users");
         const q = query(userRef, where("name", "==", userName));
 
         const querySnapshot = await getDocs(q);
-        // console.log(querySnapshot.data());
-        console.log("Allmost there...", querySnapshot);
         querySnapshot.forEach((doc) => {
             // adding data to an array 
             users = [...users, {...doc.data()}]
@@ -231,7 +224,6 @@ export const getUser = async (userName) => {
 
         return users;
     } catch {
-        console.log("User is not found")
     } 
 
 }
@@ -244,7 +236,6 @@ export const getUserById = async (uid, setUser) => {
         // REALETIME DATA OF UER
         // ---------------------
         onSnapshot(q, (querySnapshot) => {
-            console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
                 setUser({...doc.data(), id: doc.data().id})
             });
@@ -258,7 +249,6 @@ export const getUserById = async (uid, setUser) => {
         // });
         // return user;
     } catch {
-        console.log("User is not found")
     } 
 
 }
@@ -271,7 +261,6 @@ export const getPosts = async () => {
             posts.push({...post.data(), id: post.id});
         })
     } catch(e) {
-        console.log(e.message);
     }
 
     return posts;

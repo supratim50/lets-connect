@@ -35,13 +35,11 @@ const Header = ({children, register}) => {
         const Mode = mode === "light" ? "dark" : "light";
         localStorage.setItem("Mode", Mode);  
         setMode(Mode);
-        console.log("theme handler ",Mode);
     }
 
     useEffect(() => {
         const root = document.getElementById("root");
         const Mode = localStorage.getItem("Mode");
-        console.log("use effect",Mode);
         setMode(Mode);
         if(mode === "dark") {
             root.classList.add("dark-theme");

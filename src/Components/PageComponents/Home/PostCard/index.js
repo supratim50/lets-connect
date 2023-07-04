@@ -34,15 +34,15 @@ const PostCard = ({currentUser}) => {
     } else if(progress !== "" && progress < 100) {
       return
     } else {
-      console.log(filePath)
         try{
-          const post = await setPostData(currentUser.name, currentUser.email, currentUser.profileUrl, filePath, textValue);
+          const postId = await setPostData(currentUser.name, currentUser.email, currentUser.profileUrl, filePath, textValue);
           dispatch({type: "ADD", payload: {
-            id: post.id,
+            id: postId,
             caption: textValue,
             name: currentUser.name,
             email: currentUser.email,
             profileImg: currentUser.profileUrl,
+            likes: [],
             postedTime: Date.now(),
             image: filePath
           }})

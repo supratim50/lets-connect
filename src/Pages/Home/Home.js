@@ -21,12 +21,15 @@ const Home = () => {
   useEffect(() => {
     const unsub = async () => {
       const getData = await getPosts();
-      console.log("getData",getData)
       dispatch({type: "SET", payload: getData});
     }
 
     return () => unsub()
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    console.log(posts);
+  }, [posts])
 
   return (
     <>
@@ -55,6 +58,7 @@ const Home = () => {
                 posts.map((post) => {
                   return (
                     <NewsFeed  
+                      key={post.id}
                       post={post}
                     />
                   )

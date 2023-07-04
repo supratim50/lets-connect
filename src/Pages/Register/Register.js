@@ -50,8 +50,6 @@ const Register = () => {
             // setIsEmpty(false);
             const user = await signupUser(email, pass, name, dpPath);
             const userResponse = await setUserData(user.displayName, userName, user.email, user.photoURL, user.uid, coverPhoto);
-            console.log("signUp", user.id);
-            console.log("userDetails", userResponse);
             navigate("/");
         } else {
             console.log("Please Enter Email and Password!!");

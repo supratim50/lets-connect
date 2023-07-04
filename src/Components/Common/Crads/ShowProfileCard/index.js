@@ -6,8 +6,6 @@ import RoundedImage from '../../Images/RoundedImage';
 
 const ShowProfileCard = ({profileImage, name, email, postedTime, classes}) => {
 
-  console.log(profileImage)
-
   return (
     <div className={`flex align-center ${classes ? classes : ''}`} key={email}>
         <div >

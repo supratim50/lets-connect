@@ -5,7 +5,6 @@ export const firebaseAuth = getAuth(firebaseApp);
 
 export const signupUser = async (email, password, name, profileImage) => {
     const res = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-    console.log(res.user)
     await updateProfile(res.user, {
         displayName: name,
         photoURL: profileImage
