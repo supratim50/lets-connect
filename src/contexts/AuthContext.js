@@ -12,8 +12,8 @@ const AuthContextProvider = ({children}) => {
 
     // const {userDispatch} = useContext(UserContext);
 
-    const [currentUser, setCurrentUser] = useState({});
-    const [user, setUser] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const getUser = onAuthStateChanged(firebaseAuth, async user => {
