@@ -4,7 +4,7 @@ import "./ProfileEdit.style.css";
 import TextInput from "../../../Common/Input/TextInput/TextInput";
 import PrimaryBtn from '../../../Common/Buttons/PrimaryBtn';
 
-const ProfileEdit = ({updateData, DBabout, DBskills, DBlocation, DBname}) => {
+const ProfileEdit = ({updateData, userName, userAbout, userSkills, userLocation}) => {
 
     const [about, setAbout] = useState("");
     const [name, setName] = useState("");
@@ -13,10 +13,10 @@ const ProfileEdit = ({updateData, DBabout, DBskills, DBlocation, DBname}) => {
     const [isNameEmpty, setIsNameEmpty] = useState(false);
 
     useEffect(() => {
-        setAbout(DBabout);
-        setName(DBname);
-        setSkills(DBskills);
-        setLocation(DBlocation);
+        setAbout(userAbout);
+        setName(userName);
+        setSkills(userSkills);
+        setLocation(userLocation);
     }, [])
 
     const submitHandler = () => {

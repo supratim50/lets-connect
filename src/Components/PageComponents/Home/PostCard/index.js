@@ -89,7 +89,7 @@ const PostCard = ({currentUser}) => {
               text={"Photo"} 
             />
           </label>
-          <input type='file' id="file" onChange={fileHandler} />
+          <input type='file' id="file" onChange={fileHandler} accept='.jpg, .png, .jpeg' />
             {/* <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"blue"} icon={<IoPlayCircle />} text={"Video"} />
             <IconTextButton classes={"px-4 py-2 mr-3"} iconClasses={"red"} icon={<IoListCircle />} text={"Story"} /> */}
           {

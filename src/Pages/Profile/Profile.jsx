@@ -134,7 +134,13 @@ const Profile = () => {
                                 <label htmlFor='coverPhoto' className='cover-edit flex justify-center align-center'>
                                     <p className='text-paragraph'>{<IoCamera />}</p>
                                 </label>
-                                <input type="file" id='coverPhoto' onChange={onHandleEditCover} style={{display: 'none'}} />
+                                <input 
+                                    type="file" 
+                                    id='coverPhoto' 
+                                    onChange={onHandleEditCover} 
+                                    style={{display: 'none'}} 
+                                    accept='.jpg, .png, .jpeg'
+                                />
                             </>
                         )
                     }
@@ -201,10 +207,10 @@ const Profile = () => {
         <div className={`edit-box ${editActive && "active"}`}>
             <ProfileEdit 
                 updateData={updateData} 
-                DBname={userOnProfile.name}
-                DBabout={userOnProfile.about}
-                DBskills={userOnProfile.skills}
-                DBlocation={userOnProfile.location}
+                userName={user.name}
+                userAbout={user.about}
+                userSkills={user.skills}
+                userLocation={user.location}
             />
         </div>
 

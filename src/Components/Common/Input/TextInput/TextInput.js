@@ -45,7 +45,7 @@ const TextInput = ({icon, classes, inputClass, placeholder, resize, onChange, va
               // ref={textareaRef} 
               className={`text-input textarea ${inputClass ? inputClass : ''}`} 
               onChange={handleChange} 
-              style={{ height: `${height}px` }} 
+              style={{ height: `${height}px`}} 
             /> 
           : <input 
               value={value}
