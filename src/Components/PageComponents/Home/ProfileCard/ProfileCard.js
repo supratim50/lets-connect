@@ -2,6 +2,9 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import "./ProfileCard.style.css";
 
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from "../../../Common/Images/RoundedImage";
 

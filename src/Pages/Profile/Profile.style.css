@@ -53,6 +53,9 @@
     border-radius: 50%;
     border: 5px solid #ffff;
     overflow: hidden;
+    background-image: url(https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #edit-file {
@@ -63,7 +66,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background-image: url(https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg);
+    /* background-image: url(https://i.pinimg.com/originals/f5/c2/33/f5c233abe166b186b989293ad18ba07a.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
 }

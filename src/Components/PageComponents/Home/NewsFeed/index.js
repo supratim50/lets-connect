@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {LazyLoadImage, LazyLoadComponent} from "react-lazy-load-image-component";
+import placeholder from "../../../../Assets/Images/blank.jpg";
 import "./NewsFeed.style.css";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import ContentCard from '../../../Common/Crads/ContentCard';
 import RoundedImage from '../../../Common/Images/RoundedImage';
@@ -67,68 +70,77 @@ const NewsFeed = ({post}) => {
   }, [])
   
   return (
-    <ContentCard classes={"py-2 px-3 my-2"} key={post.id}>
-      {
-        author && (
-            <ShowProfileCard
-              onClick={clickHandlerOnProfile}
-              profileImage={author.profileUrl && author.profileUrl}
-              name={author.name && author.name}
-              email={author.email && author.name}
-              postedTime={post.postedTime}  
-            />
-        )
-      }
+    <LazyLoadComponent key={post.id}>
+      <ContentCard classes={"py-2 px-3 my-2"}>
+        {
+          author && (
+              <ShowProfileCard
+                onClick={clickHandlerOnProfile}
+                profileImage={author.profileUrl && author.profileUrl}
+                name={author.name && author.name}
+                email={author.email && author.name}
+                postedTime={post.postedTime}  
+              />
+          )
+        }
 
-      <div className='py-2'>
-        <div>
-          {post.caption && <p className='paragraph text-paragraph'>{post.caption}</p>}
-        </div>
-        {/* <div className='flex justify-center'> */}
-          {
-            post.image &&
-            <div className='media-box flex justify-center mt-1'>
-              <div className='postImageBox'>
-                <img src={post.image} className='postImage' alt='Post' />
+        <div className='py-2'>
+          <div>
+            {post.caption && <p className='paragraph text-paragraph'>{post.caption}</p>}
+          </div>
+          {/* <div className='flex justify-center'> */}
+            {
+              post.image &&
+              <div className='media-box flex justify-center mt-1'>
+                <div className='postImageBox'>
+                  {/* <img src={post.image} className='postImage' alt='Post' loading='lazy' /> */}
+                  <LazyLoadImage 
+                    src={post.image}
+                    className='postImage'
+                    alt="Image Alt"
+                    effect="blur"
+                    placeholderSrc={placeholder}
+                  />
+                </div>
+              </div>
+            }
+          {/* </div> */}
+
+          {/* LIKE and COMMENT */}
+          <div className='flex align-center justify-between mt-1 py-1'>
+            <div>
+              <div className='flex align-center'>
+                <div className='flex'>
+                  <RoundedImage image={Img} classes={"small"} styles={styles.imageStyle} />
+                  <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                  <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
+                </div>
+                <div className='ml-1'>
+                  <p className='paragraph-sm text-paragraph2'>{likeCount} Likes</p>
+                </div>
               </div>
             </div>
-          }
-        {/* </div> */}
-
-        {/* LIKE and COMMENT */}
-        <div className='flex align-center justify-between mt-1 py-1'>
-          <div>
-            <div className='flex align-center'>
-              <div className='flex'>
-                <RoundedImage image={Img} classes={"small"} styles={styles.imageStyle} />
-                <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
-                <RoundedImage image={Img} classes={"small"} styles={{...styles.imageStyle, ...styles.imageSpace}} />
-              </div>
-              <div className='ml-1'>
-                <p className='paragraph-sm text-paragraph2'>{likeCount} Likes</p>
+            <div>
+              <div className=''>
+                <p className='paragraph-sm text-paragraph2'>88 Dummy Comment</p>
               </div>
             </div>
           </div>
-          <div>
-            <div className=''>
-              <p className='paragraph-sm text-paragraph2'>88 Dummy Comment</p>
-            </div>
+
+          {/* LIKE AND COMMENT BUTTON */}
+          <div className='flex mt-1'>
+            {
+              isLiked
+              ? <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} active={isLiked} onClick={unLikeHandler} />
+              : <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} onClick={LikeHandler} />
+            }
+            <IconTextSecondaryBtn icon={<IoChatbubbleEllipses />} text={"Comment"} classes={"py-2 px-3 mr-2"} />
+            <IconTextSecondaryBtn icon={<IoShare />} text={"Share"} classes={"py-2 px-3"} />
           </div>
-        </div>
 
-        {/* LIKE AND COMMENT BUTTON */}
-        <div className='flex mt-1'>
-          {
-            isLiked
-            ? <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} active={isLiked} onClick={unLikeHandler} />
-            : <IconTextSecondaryBtn icon={<IoHeart />} text={"Like"} classes={"py-2 px-3 mr-2"} onClick={LikeHandler} />
-          }
-          <IconTextSecondaryBtn icon={<IoChatbubbleEllipses />} text={"Comment"} classes={"py-2 px-3 mr-2"} />
-          <IconTextSecondaryBtn icon={<IoShare />} text={"Share"} classes={"py-2 px-3"} />
         </div>
-
-      </div>
-    </ContentCard>
+      </ContentCard>
+    </LazyLoadComponent>
   )
 }
 

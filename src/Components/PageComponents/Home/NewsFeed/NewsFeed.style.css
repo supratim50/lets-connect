@@ -1,3 +1,8 @@
+.postImageBox {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
 .postImage {
     max-width: 100%;
     min-width: 200px;

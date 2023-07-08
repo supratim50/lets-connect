@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
+
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import "./Profile.style.css";
 
 import ProfileDetails from '../../Components/PageComponents/Profile/ProfileDetails';
@@ -29,7 +33,7 @@ const Profile = () => {
 
     const [progress, setProgress] = useState(0);
     const [profileImg, setProfileImg] = useState("");
-    const [profielCover, setProfielCover] = useState("");
+    const [profileCover, setProfielCover] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     // GETTING USER BY ID
@@ -126,7 +130,7 @@ const Profile = () => {
             <div className='profile-box'>
                 {/* COVER */}
                 <div className='cover'>
-                    <img className='cover-photo' src={profielCover} />
+                    <img className='cover-photo' src={profileCover} />
                     {/* EDIT BUTTON */}
                     {
                         !otherUser && (
@@ -149,7 +153,13 @@ const Profile = () => {
                 <div className='dp-box flex align-end justify-between pr-3'>
                     <div className='dp-container flex flex-column align-center'>
                         <div className='dp-img-box'>
-                            <img className='dp' src={profileImg} />
+                            <LazyLoadImage 
+                                src={profileImg}
+                                className='dp'
+                                alt="Image Alt"
+                                effect="blur"
+                            />
+                            {/* <img className='dp' src={profileImg} /> */}
                             {/* EDIT BUTTON */}
                             {
                                 !otherUser && (
